@@ -1,1 +1,7 @@
-<thekooc-nx-welcome></thekooc-nx-welcome> <router-outlet></router-outlet>
+<tk-shell *ngIf="useShell; else outlet">
+    <ng-container *ngTemplateOutlet="outlet"></ng-container>
+</tk-shell>
+
+<ng-template #outlet>
+    <router-outlet></router-outlet>
+</ng-template>

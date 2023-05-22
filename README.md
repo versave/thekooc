@@ -1,4 +1,4 @@
-# Thekooc
+# The Kooc
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -6,7 +6,12 @@
 
 ## Development server
 
-Run `nx serve thekooc` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Run `nx serve ngui-nx` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
+Run `npx nx g c {componentName}` to generate a new component.
+- `--standalone` for a standalone component.
+- `--changeDetection=OnPush` for a component with OnPush change detection.
+- `--project={projectName}` to generate a component in a specific project.
 
 ## Understand this workspace
 

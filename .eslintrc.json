@@ -15,7 +15,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "thekooc",
+            "prefix": "tk",
             "style": "camelCase"
           }
         ],
@@ -23,10 +23,13 @@
           "error",
           {
             "type": "element",
-            "prefix": "thekooc",
+            "prefix": "tk",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@nrwl/nx/enforce-module-boundaries": "off",
+        "@angular-eslint/no-empty-lifecycle-method": "error",
+        "@angular-eslint/use-lifecycle-interface": "error"
       }
     },
     {
