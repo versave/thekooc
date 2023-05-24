@@ -1,0 +1,11 @@
+@use "include-media" as *;
+
+$breakpoints: (
+    phone-xs: 400px,
+    phone: 650px,
+    tablet: 968px,
+    tablet-landscape: 1024px,
+    desktop: 1440px,
+);
+
+@forward "include-media";

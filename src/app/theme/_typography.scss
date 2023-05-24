@@ -1,0 +1,97 @@
+@use "src/app/theme/layout" as *;
+@use "src/app/theme/layout-variables" as *;
+@use "src/app/theme/typography-variables" as *;
+
+body {
+    font-family: $font-primary;
+    font-size: $font-xxs;
+}
+
+h1, .font-heading-1 {
+    margin-bottom: $spacing-xxs;
+    font-size: $font-xxxl;
+
+    @include media("<=tablet") {
+        font-size: 40px;
+    }
+
+    @include media("<=phone") {
+        font-size: 36px;
+    }
+
+    @include media("<=phone-xs") {
+        font-size: 32px;
+    }
+}
+h2, .font-heading-2 {
+    margin-bottom: $spacing-xs;
+    font-size: $font-xxl;
+
+    @include media("<=tablet") {
+        font-size: 30px;
+    }
+
+    @include media("<=phone") {
+        font-size: 26px;
+    }
+
+    @include media("<=phone-xs") {
+        font-size: 24px;
+    }
+}
+h3, .font-heading-3 {
+    margin-bottom: $spacing-xs;
+    font-size: $font-xl;
+
+    @include media("<=tablet") {
+        font-size: 26px;
+    }
+
+    @include media("<=phone") {
+        font-size: 22px;
+    }
+}
+h4, .font-heading-4 {
+    margin-bottom: $spacing-xs;
+    font-size: $font-l;
+}
+h5, .font-heading-5 {
+    margin-bottom: $spacing-xxs;
+    font-size: $font-m;
+}
+h6, .font-heading-6 {
+    margin-bottom: $spacing-xxs;
+    font-size: $font-s;
+}
+
+p {
+    margin-bottom: $spacing-xs;
+    line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-heading;
+}
+
+h1, h2, h3, h4, h5, h6, strong {
+    font-weight: 600;
+}
+
+.font-caption {
+    margin-bottom: $spacing-xs;
+    font-size: $font-xs;
+
+    @include media("<=phone-xs") {
+        font-size: $font-xxs;
+    }
+}
+
+.font-body {
+    margin-bottom: $spacing-xs;
+    font-size: $font-xxs;
+}
+
+.font-micro {
+    margin-bottom: $spacing-xs;
+    font-size: $font-xxxs;
+}

@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@use "/src/app/theme/fonts" as *;
+@use "/src/app/theme/reset" as *;
+@use "/src/app/theme/typography" as *;
+@use "/src/app/theme/base" as *;
+@use "/src/app/theme/container" as *;
+@use "/src/app/theme/helpers" as *;
+
+html {
+  scroll-behavior: smooth;
+}

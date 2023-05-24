@@ -1,0 +1,13 @@
+@use "src/app/theme/layout" as *;
+
+.show-tablet-below {
+    @include media(">tablet") {
+        display: none !important;
+    }
+}
+
+.show-tablet-above {
+    @include media("<=tablet") {
+        display: none !important;
+    }
+}

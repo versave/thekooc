@@ -7,7 +7,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('./pages/home/home.component').then((mod) => mod.HomeComponent),
         data: {
             routeTitle: 'All of your recipes in one place',
-            routeDescription: 'The kooc description.',
+            routeDescription: 'The Kooc description.',
         },
         canActivate: [genericRouteGuard],
     },

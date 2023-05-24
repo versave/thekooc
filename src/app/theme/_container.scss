@@ -1,0 +1,14 @@
+$container-width: 1440px;
+$side-padding: 15px;
+
+.app-container {
+    max-width: calc(#{$container-width} + #{$side-padding * 2});
+    margin: 0 auto;
+    padding: 0 $side-padding
+}
+
+.app-container-full {
+    @extend .app-container;
+
+    max-width: none;
+}

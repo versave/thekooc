@@ -1,0 +1,29 @@
+@use "src/app/theme/color-variables" as *;
+@use "src/app/theme/layout-variables" as *;
+
+html {
+    height: 100%;
+}
+
+body {
+    min-width: 320px;
+    height: 100%;
+    background: $color-white;
+    color: $color-black;
+}
+
+ul.list {
+    padding-left: $spacing-xxxs * 4;
+    line-height: 1.5;
+
+    li {
+        + li {
+            margin-top: $spacing-xxs;
+        }
+
+        > ul {
+            margin-top: $spacing-xxs;
+        }
+    }
+}
+
