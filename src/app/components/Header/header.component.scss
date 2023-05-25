@@ -1,0 +1,38 @@
+@use "../../theme/color-variables" as *;
+@use "../../theme/typography-variables" as *;
+@use "../../theme/layout-variables" as *;
+
+.header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 5;
+  padding: $spacing-xs 0;
+  background: rgba($color-black, .8);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 0 $spacing-m;
+
+  a, button {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    background: none;
+    font-family: $font-heading;
+    font-size: $font-xs;
+    color: $color-white;
+    text-decoration: none;
+
+    span {
+      margin-left: $spacing-xs;
+    }
+  }
+}
