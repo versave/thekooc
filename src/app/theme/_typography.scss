@@ -24,7 +24,7 @@ h1, .font-heading-1 {
     }
 }
 h2, .font-heading-2 {
-    margin-bottom: $spacing-xs;
+    margin-bottom: $spacing-s;
     font-size: $font-xxl;
 
     @include media("<=tablet") {

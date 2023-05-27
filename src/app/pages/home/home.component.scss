@@ -1,8 +1,11 @@
 @use "../../theme/color-variables" as *;
+@use "../../theme/typography-variables" as *;
+@use "../../theme/layout-variables" as *;
 
 .intro {
   position: relative;
   padding: 160px 0 80px;
+  margin-bottom: $spacing-l;
   background: linear-gradient(180deg, rgba(233, 180, 76, 0.82) 0%, $color-orange 100%);
 
   .background {
@@ -34,6 +37,10 @@
           margin-left: 89px;
         }
       }
+    }
+
+    p {
+      font-size: $font-xxl + 4;
     }
   }
 }
