@@ -143,6 +143,13 @@
         }
       },
       "defaultConfiguration": "production"
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "version": 2,
+        "browserTarget": "thekooc:build:production"
+      }
     }
   }
 }

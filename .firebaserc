@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "thekooc-42ae0": {
+      "hosting": {
+        "thekooc": [
+          "thekooc-42ae0"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "thekooc-42ae0"
+  }
+}
