@@ -1,0 +1,73 @@
+@use "../../theme/layout-variables" as *;
+@use "../../theme/color-variables" as *;
+
+.card {
+  overflow: hidden;
+  display: block;
+  border-radius: 10px;
+  background: $color-white;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.image {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 235px;
+  background: $color-bright-yellow;
+}
+
+.recipe-image {
+  object-fit: cover;
+}
+
+.prep-info {
+  display: flex;
+  justify-content: space-between;
+  padding: ($spacing-xxxs + 2) $spacing-s;
+  background: $color-orange;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    color: $color-white;
+
+    img {
+      margin-right: $spacing-xxs;
+    }
+  }
+}
+
+.content {
+    padding: $spacing-xs;
+}
+
+.description {
+  margin-bottom: $spacing-xs + 4;
+}
+
+.tags {
+  margin-bottom: $spacing-s;
+  color: $color-text-gray;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  &-image {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    margin-right: $spacing-xs;
+    border-radius: 50%;
+    background: $color-black;
+  }
+}

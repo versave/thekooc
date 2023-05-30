@@ -1,1 +1,54 @@
-<p>recipe-card works!</p>
+<!--// todo: Add href to recipe-->
+<div *ngIf="cardData" class="card">
+    <div class="image">
+<!--        // todo: Use image component-->
+        <img *ngIf="cardData?.image as imageSrc" [ngSrc]="imageSrc" fill class="recipe-image">
+
+        <img
+                *ngIf="!cardData?.image"
+                ngSrc="/assets/icons/dish-placeholder.svg"
+                width="100"
+                height="100"
+                alt="Meal with no image"
+        >
+    </div>
+
+    <div class="prep-info">
+        <p class="prep-info-item">
+            <img ngSrc="/assets/icons/prep-time.svg" width="20" height="20" alt="clock icon">
+
+            {{cardData.cookingTime}}
+        </p>
+
+        <p class="prep-info-item">
+            <img ngSrc="/assets/icons/serves.svg" width="20" height="20" alt="serves icon">
+
+            {{cardData.serves}}
+        </p>
+    </div>
+
+    <div class="content">
+        <p class="font-caption">
+            <strong>{{cardData.title}}</strong>
+        </p>
+
+        <p class="description">
+            Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet...
+        </p>
+
+        <p *ngIf="cardData?.tags?.length" class="tags">
+            <em>{{cardData.tags.join(', ')}}</em>
+        </p>
+
+        <a class="author" [routerLink]="cardData.author.url">
+            <div class="author-image">
+                <!--        // todo: Use image component-->
+                <img *ngIf="cardData?.author?.image as imageSrc" [ngSrc]="imageSrc" fill class="Author image">
+
+                <img *ngIf="!cardData?.author?.image" ngSrc="/assets/icons/account-guest.svg" width="16" height="16" alt="User icon">
+            </div>
+
+            <strong>{{cardData.author.name}}</strong>
+        </a>
+    </div>
+</div>

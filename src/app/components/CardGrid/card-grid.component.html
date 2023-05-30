@@ -1,1 +1,5 @@
-<p>card-grid works!</p>
+<div class="grid">
+    <div class="grid-item" *ngFor="let card of cards; trackBy: trackByFn">
+        <tk-recipe-card [cardData]="card" />
+    </div>
+</div>

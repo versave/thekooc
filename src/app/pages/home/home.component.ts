@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardGridComponent } from '../../components/CardGrid/card-grid.component';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import { getRecipeMocks, recipeMock } from '../../mocks/recipe.mock';
 
 @Component({
     selector: 'tk-home',
@@ -12,6 +13,9 @@ import { addDoc, collection, Firestore } from '@angular/fire/firestore';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
+    // todo: Remove this mock
+    public cardMocks = getRecipeMocks();
+
     // todo: Example of how to use firestore - remove
     // constructor(private firestore: Firestore) {}
     //
