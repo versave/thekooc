@@ -1,36 +1,9 @@
-<div class="intro">
-    <figure class="background" style="background-image: url('assets/icons/intro-background.svg')"></figure>
+<div class="components">
+    <tk-intro />
 
-    <div class="app-container content">
-        <h1>
-            <span>The</span>
+    <tk-recipes-preview class="preview" />
 
-            <span>Kooc</span>
-        </h1>
+    <tk-categories-preview class="preview" />
 
-        <p class="font-heading-2">All your recipes in one place.</p>
-    </div>
+    <tk-callout />
 </div>
-
-<section class="preview">
-    <div class="app-container">
-        <h2>Sneak peak</h2>
-
-        <tk-card-grid [cards]="cardMocks" />
-    </div>
-</section>
-
-<section class="categories">
-    <div class="app-container">
-        <h2>Categories</h2>
-
-        <div class="categories-grid">
-            <div
-                *ngFor="let category of categoryMocks; trackBy: trackCategoryByFn"
-                class="category-item"
-            >
-                <tk-category-card [categoryData]="category" />
-            </div>
-        </div>
-    </div>
-</section>

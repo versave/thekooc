@@ -1,0 +1,14 @@
+@use "../../../../theme/layout-variables" as *;
+@use "../../../../theme/color-variables" as *;
+@use "../../../../theme/typography-variables" as *;
+
+.callout {
+    padding: $spacing-xl 0;
+    background: $color-orange;
+    color: $color-white;
+    text-align: center;
+
+    h2 {
+        font-family: $font-primary;
+    }
+}

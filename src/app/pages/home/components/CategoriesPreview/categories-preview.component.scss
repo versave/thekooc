@@ -1,0 +1,9 @@
+@use "../../../../theme/layout-variables" as *;
+
+.categories {
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: $spacing-xs + $spacing-xxxs;
+    }
+}

@@ -1,0 +1,14 @@
+<section class="categories">
+    <div class="app-container">
+        <h2>Categories</h2>
+
+        <div class="categories-grid">
+            <div
+                    *ngFor="let category of categoryMocks; trackBy: trackCategoryByFn"
+                    class="category-item"
+            >
+                <tk-category-card [categoryData]="category" />
+            </div>
+        </div>
+    </div>
+</section>

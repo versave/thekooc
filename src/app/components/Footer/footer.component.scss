@@ -1,0 +1,41 @@
+@use "../../theme/layout-variables" as *;
+@use "../../theme/color-variables" as *;
+
+.footer {
+    padding: $spacing-s;
+    background: $color-black;
+    color: $color-white;
+}
+
+.top {
+    margin-bottom: $spacing-s;
+    text-align: center;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0;
+
+    p {
+        margin-bottom: 0;
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+
+        li {
+            margin-right: $spacing-s;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    a {
+        text-decoration: none;
+    }
+}

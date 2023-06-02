@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FooterComponent } from './footer.component';
+import { CalloutComponent } from './callout.component';
 
-describe('FooterComponent', () => {
-    let component: FooterComponent;
-    let fixture: ComponentFixture<FooterComponent>;
+describe('CalloutComponent', () => {
+    let component: CalloutComponent;
+    let fixture: ComponentFixture<CalloutComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [FooterComponent],
+            imports: [CalloutComponent],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(FooterComponent);
+        fixture = TestBed.createComponent(CalloutComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

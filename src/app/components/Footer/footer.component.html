@@ -1,1 +1,23 @@
-<p>footer works!</p>
+<footer class="footer">
+    <div class="app-container">
+        <div class="top">
+            <a class="logo" routerLink="/" aria-label="logo">
+                <img ngSrc="/assets/icons/logo.svg" width="59" height="59" priority alt="The Kooc">
+            </a>
+        </div>
+
+        <div class="bottom font-micro">
+            <p>{{copyText}}</p>
+
+            <ul>
+                <li>
+                    <a href="terms">Terms & conditions</a>
+                </li>
+
+                <li>
+                    <a href="privacy-policy">Privacy policy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
