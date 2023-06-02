@@ -1,0 +1,9 @@
+<a *ngIf="categoryData" [routerLink]="categoryData.url" class="card">
+    <div class="image">
+        <img [ngSrc]="categoryData.imageUrl" width="124" height="124">
+    </div>
+
+    <div class="content">
+        <strong class="font-heading-4">{{categoryData.title}}</strong>
+    </div>
+</a>

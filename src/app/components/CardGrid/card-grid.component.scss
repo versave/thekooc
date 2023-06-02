@@ -3,5 +3,5 @@
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-gap: $spacing-xs;
+    grid-gap: $spacing-xs + $spacing-xxxs;
 }
