@@ -1,0 +1,25 @@
+<button
+    *ngIf="elementType === 'button'"
+    [type]="buttonType"
+    [class.loading]="loading"
+    [class.disabled]="disabled"
+    [class.full-width]="fullWidth"
+    [class]="buttonStyle"
+    [attr.aria-label]="label"
+    class="button"
+>
+    {{ label }}
+</button>
+
+<a
+    *ngIf="elementType === 'link'"
+    [class.loading]="loading"
+    [class.disabled]="disabled"
+    [class.full-width]="fullWidth"
+    [routerLink]="href"
+    [class]="buttonStyle"
+    [attr.aria-label]="label"
+    class="button"
+>
+    {{ label }}
+</a>
