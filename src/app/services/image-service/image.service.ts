@@ -11,14 +11,11 @@ export class ImageService {
 
     public makeImageData(imageProperties: ImageProperties): ImageData {
         const { path, hasRetina } = imageProperties;
-        const webpFileNameType = this.makeFileNameType(path, true, false);
-        const defaultWebpSrcsetUrl = hasRetina
-            ? `${webpFileNameType}, ${this.makeFileNameType(path, true, true)} 2x`
-            : webpFileNameType;
-        const defaultSrcsetUrl = hasRetina ? `${path}, ${this.makeFileNameType(path, false, true)} 2x` : path;
+        const fileNameType = this.makeFileNameType(path, false);
+        const srcsetUrl = hasRetina ? `${fileNameType}, ${this.makeFileNameType(path, true)} 2x` : fileNameType;
         const mediaSrcsets = this.makeMediaSrcsets(imageProperties);
 
-        return { defaultWebpSrcsetUrl, defaultSrcsetUrl, mediaSrcsets };
+        return { srcsetUrl, mediaSrcsets };
     }
 
     private getFilenameAndType(filePath: string): string[] {
@@ -30,9 +27,9 @@ export class ImageService {
         return [pathWithoutType, fileType];
     }
 
-    private makeFileNameType(path: string, webp: boolean, retina: boolean, breakpoint?: Breakpoint): string {
+    private makeFileNameType(path: string, retina: boolean, breakpoint?: Breakpoint): string {
         const filenameAndType = this.getFilenameAndType(path);
-        const fileType = webp ? 'webp' : filenameAndType[1];
+        const fileType = filenameAndType[1];
         const suffix = retina ? '@2x' : '';
 
         return breakpoint
@@ -46,17 +43,12 @@ export class ImageService {
 
         breakpoints?.reverse().forEach((breakpoint) => {
             const breakpointSize = this.mediaService.getBreakpointSize(breakpoint);
-            const webpFileNameType = this.makeFileNameType(path, true, false, breakpoint);
-            const defaultFileNameType = this.makeFileNameType(path, false, false, breakpoint);
-            const webpUrl = hasRetina
-                ? `${webpFileNameType}, ${this.makeFileNameType(path, true, true, breakpoint)} 2x`
-                : webpFileNameType;
-            const defaultUrl = hasRetina
-                ? `${defaultFileNameType}, ${this.makeFileNameType(path, false, true, breakpoint)} 2x`
-                : defaultFileNameType;
+            const fileNameType = this.makeFileNameType(path, false, breakpoint);
+            const url = hasRetina
+                ? `${fileNameType}, ${this.makeFileNameType(path, true, breakpoint)} 2x`
+                : fileNameType;
 
-            srcsets.push({ media: `(max-width:${breakpointSize}px)`, url: webpUrl, type: 'image/webp' });
-            srcsets.push({ media: `(max-width:${breakpointSize}px)`, url: defaultUrl, type: '' });
+            srcsets.push({ media: `(max-width:${breakpointSize}px)`, url, type: 'image/webp' });
         });
 
         return srcsets;

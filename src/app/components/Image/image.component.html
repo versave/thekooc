@@ -1,0 +1,29 @@
+<picture *ngIf="makeImageData() as imageData">
+    <source
+        *ngFor="let set of imageData.mediaSrcsets"
+        [type]="set.type"
+        [media]="set.media"
+        [srcset]="set.url"
+    >
+
+    <source [srcset]="imageData.srcsetUrl" type="image/webp">
+
+    <img
+        *ngIf="width && height && !fill"
+        [ngSrc]="imageData.srcsetUrl"
+        [attr.alt]="alt"
+        [width]="width"
+        [height]="height"
+        [priority]="priority"
+        [fill]="fill"
+    >
+
+    <img
+        *ngIf="fill && !(width && height)"
+        [ngSrc]="imageData.srcsetUrl"
+        [attr.alt]="alt"
+        [priority]="priority"
+        [fill]="fill"
+        [class.cover]="fill"
+    >
+</picture>

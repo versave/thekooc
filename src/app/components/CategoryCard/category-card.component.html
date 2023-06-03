@@ -1,6 +1,11 @@
 <a *ngIf="categoryData" [routerLink]="categoryData.url" class="card">
     <div class="image">
-        <img [ngSrc]="categoryData.imageUrl" width="124" height="124">
+        <tk-image
+            [imageProperties]="{ path: categoryData.imageUrl, hasRetina: false }"
+            [alt]="categoryData.title"
+            width="124"
+            height="124"
+        />
     </div>
 
     <div class="content">

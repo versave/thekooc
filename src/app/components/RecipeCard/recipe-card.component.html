@@ -1,16 +1,20 @@
 <!--// todo: Add href to recipe-->
 <div *ngIf="cardData" class="card">
     <div class="image">
-<!--        // todo: Use image component-->
-        <img *ngIf="cardData?.image as imageSrc" [ngSrc]="imageSrc" fill class="recipe-image">
+        <tk-image
+            *ngIf="cardData?.image as imageSrc"
+            [imageProperties]="{ path: imageSrc, hasRetina: false }"
+            [alt]="cardData.title"
+            [fill]="true"
+        />
 
-        <img
-                *ngIf="!cardData?.image"
-                ngSrc="/assets/icons/dish-placeholder.svg"
-                width="100"
-                height="100"
-                alt="Meal with no image"
-        >
+        <tk-image
+            *ngIf="!cardData?.image"
+            [imageProperties]="{ path: '/assets/icons/dish-placeholder.svg', hasRetina: false }"
+            width="100"
+            height="100"
+            alt="Meal with no image"
+        />
     </div>
 
     <div class="prep-info">
@@ -42,8 +46,12 @@
 
         <a class="author" [routerLink]="cardData.author.url">
             <div class="author-image">
-                <!--        // todo: Use image component-->
-                <img *ngIf="cardData?.author?.image as imageSrc" [ngSrc]="imageSrc" fill class="Author image">
+                <tk-image
+                        *ngIf="cardData?.author?.image as imageSrc"
+                        [imageProperties]="{ path: imageSrc, hasRetina: false }"
+                        [alt]="cardData.author.name"
+                        [fill]="true"
+                />
 
                 <img *ngIf="!cardData?.author?.image" ngSrc="/assets/icons/account-guest.svg" width="16" height="16" alt="User icon">
             </div>
