@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RecipeCard } from '../../models/recipe.model';
-import { RecipeCardComponent } from '../RecipeCard/recipe-card.component';
+import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 
 @Component({
     selector: 'tk-card-grid',

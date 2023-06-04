@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { categoryCards } from '../../../../mocks/category.mock';
-import { CategoryCardComponent } from '../../../../components/CategoryCard/category-card.component';
+import { CategoryCardComponent } from '../../../../components/category-card/category-card.component';
 import { CategoryCard } from '../../../../models/category.model';
 
 @Component({

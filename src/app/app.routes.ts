@@ -38,4 +38,13 @@ export const appRoutes: Route[] = [
         },
         canActivate: [genericRouteGuard],
     },
+    {
+        path: 'recipes/:slug',
+        loadComponent: () => import('./pages/recipes/recipe/recipe.component').then((mod) => mod.RecipeComponent),
+        data: {
+            routeTitle: 'Recipe name',
+            routeDescription: 'The Kooc description.',
+        },
+        canActivate: [genericRouteGuard],
+    },
 ];

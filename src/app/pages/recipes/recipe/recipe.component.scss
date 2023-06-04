@@ -1,0 +1,95 @@
+@use "../../../theme/color-variables" as *;
+@use "../../../theme/typography-variables" as *;
+@use "../../../theme/layout-variables" as *;
+
+.intro {
+    margin-bottom: $spacing-xl;
+    padding: 160px 0 80px;
+    background: $color-black;
+    color: $color-orange;
+
+    h1 {
+        text-align: center;
+    }
+}
+
+.meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-l;
+    margin-top: $spacing-xl;
+
+    &-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+
+        img {
+            margin-right: $spacing-xs + $spacing-xxxs;
+        }
+    }
+}
+
+.gallery {
+    margin-bottom: $spacing-xxl;
+}
+
+.recipe {
+    margin-bottom: $spacing-xxl;
+
+    h3 {
+        margin-bottom: $spacing-s;
+        font-family: $font-primary;
+    }
+
+    .cols {
+        display: flex;
+    }
+
+    .ingredients {
+        flex: 1 1 40%;
+
+        ul {
+            list-style: none;
+
+            li {
+                position: relative;
+                column-count: 2;
+                column-gap: $spacing-xxs;
+                padding-left: $spacing-xs;
+
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    content: '•';
+                }
+
+                + li {
+                    margin-top: $spacing-xxs;
+                }
+
+                strong, span {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .steps {
+        flex: 1 1 60%;
+        padding-left: $spacing-s;
+    }
+
+    .step {
+        + .step {
+            margin-top: $spacing-m;
+        }
+
+        strong {
+            display: block;
+            margin-bottom: $spacing-xs;
+        }
+    }
+}

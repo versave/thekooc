@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivationEnd, Router, RouterModule } from '@angular/router';
 import { distinctUntilChanged, filter, map } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ShellComponent } from './components/Shell/shell.component';
+import { ShellComponent } from './components/shell/shell.component';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @UntilDestroy()

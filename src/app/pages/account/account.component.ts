@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { userMock } from '../../mocks/user.mock';
-import { ImageComponent } from '../../components/Image/image.component';
+import { ImageComponent } from '../../components/image/image.component';
 
 @Component({
     selector: 'tk-account',

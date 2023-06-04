@@ -4,6 +4,7 @@ export interface ImageProperties {
     path: string;
     hasRetina: boolean;
     breakpoints?: Breakpoint[];
+    alt?: string;
 }
 
 export interface ImageSrcset {

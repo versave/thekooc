@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardGridComponent } from '../../../../components/CardGrid/card-grid.component';
+import { CardGridComponent } from '../../../../components/card-grid/card-grid.component';
 import { getRecipeMocks } from '../../../../mocks/recipe.mock';
 
 @Component({

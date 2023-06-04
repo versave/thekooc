@@ -1,0 +1,14 @@
+@use "../../theme/layout-variables" as *;
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: $spacing-xs;
+}
+
+.item {
+    position: relative;
+    overflow: hidden;
+    height: 250px;
+    border-radius: 10px;
+}

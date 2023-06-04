@@ -1,4 +1,5 @@
-import { RecipeCard } from '../models/recipe.model';
+import { FullRecipe, RecipeCard } from '../models/recipe.model';
+import { UserModel } from '../models/user.model';
 
 export const recipeMock: RecipeCard = {
     id: '1',
@@ -40,4 +41,59 @@ export const getRecipeMocks = (): RecipeCard[] => {
     }
 
     return recipeMocks;
+};
+
+export const recipePageDataMock: FullRecipe = {
+    id: '1',
+    images: [
+        {
+            path: 'https://images.unsplash.com/photo-1564436872-f6d81182df12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+            hasRetina: false,
+            alt: 'Full Mushroom and cream cheese pizza with extra sauce',
+        },
+        {
+            path: 'https://images.unsplash.com/photo-1564436872-f6d81182df12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+            hasRetina: false,
+            alt: 'Full Mushroom and cream cheese pizza with extra sauce',
+        },
+        {
+            path: 'https://images.unsplash.com/photo-1564436872-f6d81182df12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+            hasRetina: false,
+            alt: 'Full Mushroom and cream cheese pizza with extra sauce',
+        },
+        {
+            path: 'https://images.unsplash.com/photo-1564436872-f6d81182df12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+            hasRetina: false,
+            alt: 'Full Mushroom and cream cheese pizza with extra sauce',
+        },
+        {
+            path: 'https://images.unsplash.com/photo-1564436872-f6d81182df12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
+            hasRetina: false,
+            alt: 'Full Mushroom and cream cheese pizza with extra sauce',
+        },
+    ],
+    title: 'Full Mushroom and cream cheese pizza with extra sauce',
+    steps: [
+        'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
+        'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
+        'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
+    ],
+    categories: ['Pastry', 'Main Course'],
+    ingredients: [
+        { name: 'Beef', quantity: '1kg' },
+        { name: 'Eggs', quantity: '2' },
+        { name: 'Spices', quantity: '50 grams' },
+        { name: 'Beef', quantity: '1kg' },
+        { name: 'Cucumbers', quantity: '2' },
+        { name: 'Spices', quantity: '50 grams' },
+    ],
+    tags: ['Pastry', 'Heavy', 'Spicy'],
+    cookingTime: '1hr 15m',
+    serves: 4,
+    url: 'https://www.google.com',
+    author: {
+        displayName: 'John Travolta',
+        image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=207&q=80',
+        url: 'https://www.google.com/user',
+    },
 };

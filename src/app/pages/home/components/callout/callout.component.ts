@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../../../components/Button/button.component';
+import { ButtonComponent } from '../../../../components/button/button.component';
 
 @Component({
     selector: 'tk-callout',

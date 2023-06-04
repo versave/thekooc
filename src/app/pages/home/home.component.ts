@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CardGridComponent } from '../../components/CardGrid/card-grid.component';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { IntroComponent } from './components/Intro/intro.component';
-import { RecipesPreviewComponent } from './components/RecipesPreview/recipes-preview.component';
-import { CategoriesPreviewComponent } from './components/CategoriesPreview/categories-preview.component';
-import { CalloutComponent } from './components/Callout/callout.component';
+import { IntroComponent } from './components/intro/intro.component';
+import { RecipesPreviewComponent } from './components/recipes-preview/recipes-preview.component';
+import { CategoriesPreviewComponent } from './components/categories-preview/categories-preview.component';
+import { CalloutComponent } from './components/callout/callout.component';
 
 @Component({
     selector: 'tk-home',

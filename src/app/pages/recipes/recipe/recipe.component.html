@@ -1,0 +1,57 @@
+<div class="intro">
+    <div class="app-container">
+        <h1>{{recipeData.title}}</h1>
+
+        <div class="meta">
+            <p class="meta-item font-heading-4">
+                <img ngSrc="/assets/icons/prep-time.svg" width="40" height="40" alt="clock icon">
+
+                <strong>{{recipeData.cookingTime}}</strong>
+            </p>
+
+            <p class="meta-item font-heading-4">
+                <img ngSrc="/assets/icons/serves.svg" width="40" height="40" alt="serves icon">
+
+                <strong>{{recipeData.serves}}</strong>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="recipeData?.images as images" class="gallery">
+    <div class="app-container">
+        <h2>Gallery</h2>
+
+        <tk-gallery [images]="images" />
+    </div>
+</div>
+
+<div class="recipe">
+    <div class="app-container">
+        <h2>Recipe</h2>
+
+        <div class="cols">
+            <div class="ingredients">
+                <h3>Ingredients</h3>
+
+                <ul class="font-heading-5">
+                    <li *ngFor="let ingredient of recipeData.ingredients; trackBy: trackIngredients">
+                        <strong>{{ingredient.name}}: </strong>
+
+                        <span>{{ingredient.quantity}}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="steps">
+                <h3>Steps</h3>
+
+                <div *ngFor="let step of recipeData.steps; let idx = index" class="step">
+                    <strong *ngIf="recipeData.steps.length > 1" class="font-heading-5">Step {{idx + 1}}</strong>
+
+                    <p>{{step}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

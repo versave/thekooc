@@ -1,0 +1,9 @@
+<div class="grid">
+    <div *ngFor="let image of images; trackBy: trackByFn" class="item">
+        <tk-image
+            [imageProperties]="image"
+            [alt]="image?.alt || ''"
+            [fill]="true"
+        />
+    </div>
+</div>

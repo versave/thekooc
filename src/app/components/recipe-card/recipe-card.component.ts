@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RecipeCard } from '../../models/recipe.model';
 import { RouterLink } from '@angular/router';
-import { ImageComponent } from '../Image/image.component';
+import { ImageComponent } from '../image/image.component';
 
 @Component({
     selector: 'tk-recipe-card',

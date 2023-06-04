@@ -1,4 +1,5 @@
 import { UserModel } from './user.model';
+import { ImageProperties } from './image.model';
 
 export interface RecipeCard {
     id: string;
@@ -10,4 +11,23 @@ export interface RecipeCard {
     cookingTime: string;
     serves: number;
     author: UserModel;
+}
+
+export interface FullRecipe {
+    id: string;
+    images?: ImageProperties[];
+    title: string;
+    steps: string[];
+    ingredients: Ingredient[];
+    url: string;
+    categories: string[];
+    tags: string[];
+    cookingTime: string;
+    serves: number;
+    author: UserModel;
+}
+
+export interface Ingredient {
+    name: string;
+    quantity: string;
 }
