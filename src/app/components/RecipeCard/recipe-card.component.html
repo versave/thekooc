@@ -49,14 +49,14 @@
                 <tk-image
                         *ngIf="cardData?.author?.image as imageSrc"
                         [imageProperties]="{ path: imageSrc, hasRetina: false }"
-                        [alt]="cardData.author.name"
+                        [alt]="cardData.author.displayName"
                         [fill]="true"
                 />
 
                 <img *ngIf="!cardData?.author?.image" ngSrc="/assets/icons/account-guest.svg" width="16" height="16" alt="User icon">
             </div>
 
-            <strong>{{cardData.author.name}}</strong>
+            <strong>{{cardData.author.displayName}}</strong>
         </a>
     </div>
 

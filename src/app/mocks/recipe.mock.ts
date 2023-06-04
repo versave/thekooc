@@ -11,7 +11,7 @@ export const recipeMock: RecipeCard = {
     serves: 4,
     url: 'https://www.google.com',
     author: {
-        name: 'John Travolta',
+        displayName: 'John Travolta',
         image: 'https://images.unsplash.com/photo-1587300003388-59208cc962cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=207&q=80',
         url: 'https://www.google.com/user',
     },
@@ -27,7 +27,7 @@ export const recipeMockUnfull: RecipeCard = {
     serves: 4,
     url: 'https://www.google.com',
     author: {
-        name: 'John Travolta',
+        displayName: 'John Travolta',
         url: 'https://www.google.com/user',
     },
 };

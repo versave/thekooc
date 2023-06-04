@@ -1,3 +1,5 @@
+import { UserModel } from './user.model';
+
 export interface RecipeCard {
     id: string;
     image?: string;
@@ -7,11 +9,5 @@ export interface RecipeCard {
     tags: string[];
     cookingTime: string;
     serves: number;
-    author: RecipeCardAuthor;
-}
-
-interface RecipeCardAuthor {
-    name: string;
-    image?: string;
-    url: string;
+    author: UserModel;
 }

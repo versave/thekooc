@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { ImageComponent } from '../../../../components/Image/image.component';
 
 @Component({
     selector: 'tk-intro',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, ImageComponent, NgOptimizedImage],
     templateUrl: './intro.component.html',
     styleUrls: ['./intro.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

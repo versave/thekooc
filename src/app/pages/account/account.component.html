@@ -1,0 +1,20 @@
+<div class="intro">
+    <figure class="background" style="background-image: url('assets/icons/intro-background.svg')"></figure>
+</div>
+
+<div class="user">
+    <div class="app-container">
+        <div class="user-image">
+            <tk-image
+                    *ngIf="user?.image as imageSrc"
+                    [imageProperties]="{ path: imageSrc, hasRetina: false }"
+                    [alt]="user.displayName"
+                    [fill]="true"
+            />
+
+            <img *ngIf="!user?.image" ngSrc="/assets/icons/account-guest.svg" width="60" height="60" alt="User icon">
+        </div>
+
+        <h2>{{user.displayName}}</h2>
+    </div>
+</div>
