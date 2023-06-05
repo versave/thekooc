@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { FullRecipe, Ingredient } from '../../../models/recipe.model';
 import { recipePageDataMock } from '../../../mocks/recipe.mock';
 import { GalleryComponent } from '../../../components/gallery/gallery.component';
+import { PillComponent } from '../../../components/pill/pill.component';
 
 @UntilDestroy()
 @Component({
     selector: 'tk-recipe',
     standalone: true,
-    imports: [CommonModule, NgOptimizedImage, GalleryComponent],
+    imports: [CommonModule, NgOptimizedImage, GalleryComponent, RouterLink, PillComponent],
     templateUrl: './recipe.component.html',
     styleUrls: ['./recipe.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

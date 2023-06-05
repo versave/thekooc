@@ -20,8 +20,8 @@ export interface FullRecipe {
     steps: string[];
     ingredients: Ingredient[];
     url: string;
-    categories: string[];
-    tags: string[];
+    categories: CategoryTag[];
+    tags: CategoryTag[];
     cookingTime: string;
     serves: number;
     author: UserModel;
@@ -30,4 +30,9 @@ export interface FullRecipe {
 export interface Ingredient {
     name: string;
     quantity: string;
+}
+
+export interface CategoryTag {
+    id: string;
+    name: string;
 }

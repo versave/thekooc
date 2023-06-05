@@ -15,6 +15,28 @@
                 <strong>{{recipeData.serves}}</strong>
             </p>
         </div>
+
+        <div class="category-info">
+            <p>
+                <strong class="font-heading-6">Categories:</strong>
+
+                <a *ngFor="let category of recipeData.categories" [routerLink]="category.id">
+                    <tk-pill>
+                        <strong>{{category.name}}</strong>
+                    </tk-pill>
+                </a>
+            </p>
+
+            <p>
+                <strong class="font-heading-6">Tags:</strong>
+
+                <a *ngFor="let tag of recipeData.tags" [routerLink]="tag.id">
+                    <tk-pill>
+                        <strong>{{tag.name}}</strong>
+                    </tk-pill>
+                </a>
+            </p>
+        </div>
     </div>
 </div>
 

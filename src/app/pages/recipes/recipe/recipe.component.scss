@@ -93,3 +93,26 @@
         }
     }
 }
+
+.category-info {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+
+        &:first-child {
+            margin-right: $spacing-xs;
+        }
+
+        > strong {
+            margin: 0 $spacing-xs 0 0;
+        }
+
+        > a {
+            margin-right: $spacing-xs;
+        }
+    }
+}

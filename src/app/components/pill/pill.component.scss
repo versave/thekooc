@@ -1,0 +1,11 @@
+@use "../../theme/layout-variables" as *;
+@use "../../theme/color-variables" as *;
+
+.pill {
+    display: inline-block;
+    border-radius: 10px;
+    padding: $spacing-xxxs $spacing-xs;
+    background: $color-white;
+    color: $color-black;
+    cursor: pointer;
+}

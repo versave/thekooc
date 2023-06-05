@@ -78,7 +78,10 @@ export const recipePageDataMock: FullRecipe = {
         'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
         'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
     ],
-    categories: ['Pastry', 'Main Course'],
+    categories: [
+        { id: '1', name: 'Pastry' },
+        { id: '2', name: 'Main Course' },
+    ],
     ingredients: [
         { name: 'Beef', quantity: '1kg' },
         { name: 'Eggs', quantity: '2' },
@@ -87,7 +90,11 @@ export const recipePageDataMock: FullRecipe = {
         { name: 'Cucumbers', quantity: '2' },
         { name: 'Spices', quantity: '50 grams' },
     ],
-    tags: ['Pastry', 'Heavy', 'Spicy'],
+    tags: [
+        { id: '1', name: 'Pastry' },
+        { id: '2', name: 'Heavy' },
+        { id: '3', name: 'Spicy' },
+    ],
     cookingTime: '1hr 15m',
     serves: 4,
     url: 'https://www.google.com',
