@@ -1,0 +1,10 @@
+<div class="user-image" [style]="{ width: imageSize + 'px', height: imageSize + 'px'}">
+    <tk-image
+        *ngIf="imageUrl"
+        [imageProperties]="{ path: imageUrl, hasRetina: false }"
+        [fill]="true"
+        alt="User image"
+    />
+
+    <img *ngIf="!imageUrl" ngSrc="/assets/icons/account-guest.svg" [width]="placeholderSize" [height]="placeholderSize" alt="User icon">
+</div>

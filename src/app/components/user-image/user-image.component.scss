@@ -1,0 +1,17 @@
+@use "../../theme/color-variables" as *;
+@use "../../theme/layout-variables" as *;
+
+:host {
+    display: inline-block;
+}
+
+.user-image {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: $color-black;
+    box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.25);
+}

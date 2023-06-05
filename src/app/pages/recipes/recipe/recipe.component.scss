@@ -18,7 +18,7 @@
     justify-content: center;
     align-items: center;
     gap: $spacing-l;
-    margin-top: $spacing-xl;
+    margin: $spacing-xl 0 $spacing-s;
 
     &-item {
         display: flex;
@@ -97,6 +97,7 @@
 .category-info {
     display: flex;
     justify-content: space-between;
+    margin-bottom: $spacing-m;
 
     p {
         display: flex;
@@ -114,5 +115,20 @@
         > a {
             margin-right: $spacing-xs;
         }
+    }
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+
+    tk-user-image {
+        margin-bottom: $spacing-xs;
+    }
+
+    h2 {
+        color: $color-white;
     }
 }

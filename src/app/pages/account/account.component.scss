@@ -23,17 +23,7 @@ $user-image-size: 180px;
 .user {
     text-align: center;
 
-    &-image {
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: $user-image-size;
-        height: $user-image-size;
-        border-radius: 50%;
+    tk-user-image {
         margin: -$user-image-size / 2 auto $spacing-s;
-        background: $color-black;
-        box-shadow: 0 0 8px 2px rgba(0, 0, 0, 0.25);
     }
 }
