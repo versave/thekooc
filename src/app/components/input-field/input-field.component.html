@@ -1,0 +1,28 @@
+<div *ngIf="customControl" class="container" [class.invalid]="!fieldValid()">
+    <label>
+        <span *ngIf="label" class="label font-caption">
+            {{label}}
+
+            <sup *ngIf="isRequired">*</sup>
+        </span>
+
+        <div class="field">
+            <input
+                *ngIf="!textarea"
+                [formControl]="$any(customControl)"
+                [type]="type"
+                [placeholder]="placeholderValue"
+                (ngModelChange)="inputChange.emit($event)"
+            >
+
+            <textarea
+                *ngIf="textarea"
+                [formControl]="$any(customControl)"
+                [placeholder]="placeholderValue"
+                (ngModelChange)="inputChange.emit($event)"
+            ></textarea>
+        </div>
+
+        <p *ngIf="errorWarning && !fieldValid()" class="error font-body">{{ errorWarning }}</p>
+    </label>
+</div>

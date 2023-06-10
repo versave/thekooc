@@ -27,6 +27,7 @@ export const appRoutes: Route[] = [
             routeTitle: 'My account',
             routeDescription: 'The Kooc description.',
         },
+        // todo: auth guard
         canActivate: [genericRouteGuard],
     },
     {
@@ -36,6 +37,17 @@ export const appRoutes: Route[] = [
             routeTitle: 'Recipes',
             routeDescription: 'The Kooc description.',
         },
+        canActivate: [genericRouteGuard],
+    },
+    {
+        path: 'recipes/new',
+        loadComponent: () =>
+            import('./pages/recipes/new-recipe/new-recipe.component').then((mod) => mod.NewRecipeComponent),
+        data: {
+            routeTitle: 'New recipe',
+            routeDescription: 'The Kooc description.',
+        },
+        // todo: auth guard
         canActivate: [genericRouteGuard],
     },
     {

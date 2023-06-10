@@ -34,5 +34,6 @@ export interface Ingredient {
 
 export interface CategoryTag {
     id: string;
+    key: string;
     name: string;
 }

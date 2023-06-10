@@ -1,0 +1,69 @@
+@use "../../../theme/layout-variables" as *;
+@use "../../../theme/typography-variables" as *;
+
+.container {
+    padding: ($spacing-xxxl + $spacing-xl) 0;
+}
+
+form {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h1 {
+        margin-bottom: $spacing-l;
+    }
+}
+
+.actions {
+    margin-top: $spacing-l;
+}
+
+.row {
+    h3 {
+        margin-bottom: $spacing-m;
+    }
+
+    + .row {
+        margin-top: $spacing-l;
+    }
+}
+
+.entry-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    grid-gap: $spacing-s;
+}
+
+.checkbox-row {
+    .items {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        grid-gap: $spacing-m $spacing-s;
+    }
+}
+
+.dynamic-row {
+    .items {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: $spacing-s;
+        margin-bottom: $spacing-s;
+    }
+}
+
+.prep-time {
+    display: flex;
+    align-items: center;
+
+    tk-input-field {
+        ::ng-deep input {
+            text-align: center;
+        }
+    }
+
+    span {
+        margin: 0 $spacing-xxs auto;
+        font-size: $font-xxl + 5;
+        line-height: 0.8;
+    }
+}

@@ -1,0 +1,57 @@
+@use "../../theme/color-variables" as *;
+@use "../../theme/layout-variables" as *;
+@use "../../theme/typography-variables" as *;
+
+$field-height: 40px;
+
+.container {
+    position: relative;
+    padding-bottom: 22px;
+}
+
+.label {
+    display: flex;
+    margin-bottom: $spacing-xxs;
+
+    sup {
+        margin-left: $spacing-xxxs;
+    }
+}
+
+.error {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin-top: $spacing-xxs;
+    color: $color-red;
+}
+
+.field {
+    input, textarea {
+        display: block;
+        width: 100%;
+        height: $field-height;
+        border: 0;
+        border-bottom: 3px solid $color-orange;
+        padding: 0 0 $spacing-xxs;
+        font-size: $font-m;
+    }
+
+    textarea {
+        height: 140px;
+        padding: $spacing-xxs;
+        resize: none;
+    }
+}
+
+.invalid {
+    input, textarea {
+        border-color: $color-red;
+        color: $color-red;
+
+        &::placeholder {
+            color: $color-red;
+        }
+    }
+}

@@ -1,0 +1,21 @@
+<label class="container"
+       *ngIf="customControl"
+       [class.checked]="!!customControl.value"
+       [class.invalid]="!checkboxValid()"
+       [class.loading]="loading"
+       [class.disabled]="disabled"
+>
+    <input type="checkbox" [formControl]="$any(customControl)" (ngModelChange)="checkboxChange.emit($event)">
+
+    <span class="icon"></span>
+
+    <div class="content">
+        <p *ngIf="label; else content" class="label font-heading-6">
+            <strong>{{ label }}</strong>
+        </p>
+
+        <ng-template #content>
+            <ng-content></ng-content>
+        </ng-template>
+    </div>
+</label>

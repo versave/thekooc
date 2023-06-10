@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="app-container">
+        <form [formGroup]="form" (submit)="submitForm()">
+            <h1>Add New Recipe</h1>
+
+            <h2>Images here</h2>
+
+            <div class="row entry-row">
+                <div class="col">
+                    <tk-input-field
+                            *ngIf="form.get(formControls.name) as control"
+                            [customControl]="control"
+                            placeholder="Name"
+                            errorWarning="Please fill in"
+                    />
+                </div>
+
+                <div class="col">
+                    <tk-input-field
+                            *ngIf="form.get(formControls.serves) as control"
+                            [customControl]="control"
+                            placeholder="Serves"
+                            errorWarning="Please fill in"
+                    />
+                </div>
+
+                <div class="col">
+                    <div class="prep-time">
+                        <tk-input-field
+                                *ngIf="form.get(formControls.hours) as control"
+                                [customControl]="control"
+                                placeholder="Hours"
+                                errorWarning="Please fill in"
+                        />
+
+                        <span>:</span>
+
+                        <tk-input-field
+                                *ngIf="form.get(formControls.minutes) as control"
+                                [customControl]="control"
+                                placeholder="Minutes"
+                                errorWarning="Please fill in"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row checkbox-row">
+                <h3>Categories</h3>
+
+                <div class="items">
+                    <div *ngFor="let categoryControl of getFormArray(formControls.categories); let idx = index" class="col">
+                        <tk-checkbox [customControl]="categoryControl" [label]="categories[idx].name" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row checkbox-row">
+                <h3>Tags</h3>
+
+                <div class="items">
+                    <tk-checkbox
+                            *ngFor="let tagsControl of getFormArray(formControls.tags); let idx = index"
+                            [customControl]="tagsControl"
+                            [label]="tags[idx].name"
+                    />
+                </div>
+            </div>
+
+            <div class="row dynamic-row">
+                <h3>Ingredients</h3>
+
+                <div class="items">
+                    <div *ngFor="let ingredientControl of getFormArray(formControls.ingredients)" class="col">
+                        <tk-input-field
+                                [customControl]="ingredientControl"
+                                placeholder="Ingredient"
+                                errorWarning="Please fill in"
+                        />
+                    </div>
+                </div>
+
+                <tk-button
+                        *ngIf="getFormArray(formControls.ingredients).length <= 30"
+                        buttonType="button"
+                        label="Add more ingredients"
+                        buttonStyle="tertiary"
+                        [fullWidth]="true"
+                        (click)="addMoreControlsOfType(formControls.ingredients)"
+                />
+            </div>
+
+            <div class="actions">
+                <tk-button
+                        buttonType="submit"
+                        label="СВЪРЖИ СЕ"
+                        [fullWidth]="true"
+                />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+images with main image<br>
+
+ingredients<br>
+steps<br>

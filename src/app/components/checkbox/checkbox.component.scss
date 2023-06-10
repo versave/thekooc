@@ -1,0 +1,60 @@
+@use "../../theme/layout-variables" as *;
+@use "../../theme/color-variables" as *;
+
+$checkbox-size: 24px;
+
+.container {
+    display: flex;
+    cursor: pointer;
+    user-select: none;
+
+    input {
+        display: none;
+    }
+
+    &.checked {
+        .icon {
+            background: $color-orange;
+
+            &:after {
+                opacity: 1;
+            }
+        }
+    }
+
+    &.invalid {
+        .label {
+            color: $color-red;
+        }
+    }
+}
+
+.icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    flex-shrink: 0;
+    border: 2px solid $color-orange;
+    border-radius: 5px;
+    margin-right: $spacing-xs;
+
+    &:after {
+        content: '';
+        display: inline-block;
+        transform: rotate(45deg);
+        width: 6px;
+        height: 14px;
+        margin-top: -2px;
+        border-bottom: 2px solid $color-white;
+        border-right: 2px solid $color-white;
+        opacity: 0;
+    }
+}
+
+.loading,
+.disabled {
+    pointer-events: none;
+    opacity: .6;
+}
