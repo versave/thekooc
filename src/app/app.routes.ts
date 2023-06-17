@@ -12,10 +12,10 @@ export const appRoutes: Route[] = [
         canActivate: [genericRouteGuard],
     },
     {
-        path: 'register',
-        loadComponent: () => import('./pages/register/register.component').then((mod) => mod.RegisterComponent),
+        path: 'login',
+        loadComponent: () => import('./pages/auth/auth.component').then((mod) => mod.AuthComponent),
         data: {
-            routeTitle: 'Register',
+            routeTitle: 'Login',
             routeDescription: 'The Kooc description.',
         },
         canActivate: [genericRouteGuard],
