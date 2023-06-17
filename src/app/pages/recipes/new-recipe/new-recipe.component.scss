@@ -29,9 +29,11 @@ form {
 }
 
 .entry-row {
-    display: grid;
-    grid-template-columns: 3fr 1fr 1fr;
-    grid-gap: $spacing-s;
+    .items {
+        display: grid;
+        grid-template-columns: 3fr 1fr 1fr;
+        grid-gap: $spacing-s;
+    }
 }
 
 .checkbox-row {
@@ -48,6 +50,18 @@ form {
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: $spacing-s;
         margin-bottom: $spacing-s;
+
+        &.steps {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+}
+
+.images-row {
+    .items {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: $spacing-s;
     }
 }
 

@@ -1,0 +1,20 @@
+<div class="uploader">
+    <input
+        [formControl]="$any(customControl)"
+        (change)="inputChange.emit($event)"
+        type="file"
+        accept="image/*"
+        multiple
+    />
+
+    <div class="placeholder">
+        <tk-image
+                [imageProperties]="{ path: '/assets/icons/dish-placeholder.svg', hasRetina: false }"
+                width="100"
+                height="100"
+                alt="Meal with no image"
+        />
+
+        <h5>Upload image</h5>
+    </div>
+</div>

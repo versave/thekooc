@@ -40,7 +40,7 @@ $field-height: 40px;
 
     textarea {
         height: 140px;
-        padding: $spacing-xxs;
+        padding: $spacing-xxs $spacing-xxs $spacing-xxs 0;
         resize: none;
     }
 }
