@@ -11,7 +11,14 @@
                 <span>Recipes</span>
             </a>
 
-            <button (click)="signInUser()">
+
+            <a *ngIf="userData" routerLink="account">
+                <img ngSrc="/assets/icons/account-user.svg" width="38" height="38" alt="Recipe">
+
+                <span>Account</span>
+            </a>
+
+            <button *ngIf="!userData" (click)="signInUser()">
                 <img ngSrc="/assets/icons/account-guest.svg" width="38" height="38" alt="Recipe">
 
                 <span>Sign In</span>

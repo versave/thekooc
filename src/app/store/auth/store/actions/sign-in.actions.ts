@@ -1,9 +1,16 @@
 import { createAction, props } from '@ngrx/store';
 import { StoreError } from '../../../../models/utils.model';
+import { UserModel } from '../../../../models/user.model';
 
 export const signInUser = createAction('[Auth] Sign In User');
-// todo: Set proper payload type
-export const signInUserSuccess = createAction('[Auth] Sign In User Success', props<{ payload: boolean }>());
+export const signInUserSuccess = createAction('[Auth] Sign In User Success', props<{ payload: UserModel }>());
 export const signInUserFail = createAction('[Auth] Sign In User Fail', props<{ payload: StoreError }>());
+export const autoSignInUser = createAction('[Auth] Auto Sign In User');
+export const resetSignInUser = createAction('[Auth] Reset Sign In User');
 
-export type SignInActions = typeof signInUser | typeof signInUserSuccess | typeof signInUserFail;
+export type SignInActions =
+    | typeof signInUser
+    | typeof signInUserSuccess
+    | typeof signInUserFail
+    | typeof autoSignInUser
+    | typeof resetSignInUser;

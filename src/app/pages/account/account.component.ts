@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { userMock } from '../../mocks/user.mock';
 import { ImageComponent } from '../../components/image/image.component';
 import { UserImageComponent } from '../../components/user-image/user-image.component';
+import { AuthFacade } from '../../store/auth/services/auth.facade';
 
 @Component({
     selector: 'tk-account',
@@ -14,4 +15,10 @@ import { UserImageComponent } from '../../components/user-image/user-image.compo
 })
 export class AccountComponent {
     public user = userMock;
+
+    constructor(private authFacade: AuthFacade) {}
+
+    public signOut(): void {
+        this.authFacade.signOutUser();
+    }
 }

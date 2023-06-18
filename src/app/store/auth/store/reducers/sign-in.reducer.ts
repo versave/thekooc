@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/index';
 import { Nullable, StateSlice } from '../../../../models/utils.model';
+import { UserModel } from '../../../../models/user.model';
 
 // todo: Fix type
-export type SignInState = StateSlice<Nullable<boolean>>;
+export type SignInState = StateSlice<Nullable<UserModel>>;
 
 const initialState: SignInState = {
     data: null,
@@ -41,5 +42,6 @@ export const signInReducer = createReducer(
             loaded: false,
             error: action.payload,
         })
-    )
+    ),
+    on(AuthActions.resetSignInUser, (state, action): SignInState => initialState)
 );
