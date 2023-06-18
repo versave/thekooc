@@ -38,7 +38,7 @@
             </p>
         </div>
 
-        <a class="author-info" [routerLink]="'account/' + recipeData?.author?.uid">
+        <a class="author-info" [routerLink]="'account/' + recipeData.author.uid">
             <tk-user-image [imageUrl]="recipeData.author.image" size="100" />
 
             <h2>{{recipeData.author.displayName}}</h2>
