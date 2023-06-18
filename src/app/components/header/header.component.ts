@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { AuthFacade } from '../../store/auth/services/auth.facade';
 
 @Component({
     selector: 'tk-header',
@@ -10,4 +11,10 @@ import { RouterLink } from '@angular/router';
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+    constructor(private authFacade: AuthFacade) {}
+
+    public signInUser(): void {
+        this.authFacade.signInUser();
+    }
+}

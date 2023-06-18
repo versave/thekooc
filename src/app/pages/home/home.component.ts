@@ -5,6 +5,10 @@ import { IntroComponent } from './components/intro/intro.component';
 import { RecipesPreviewComponent } from './components/recipes-preview/recipes-preview.component';
 import { CategoriesPreviewComponent } from './components/categories-preview/categories-preview.component';
 import { CalloutComponent } from './components/callout/callout.component';
+import { provideState, provideStore } from '@ngrx/store';
+import { signInReducer } from '../../store/auth/store/reducers/sign-in.reducer';
+import { provideEffects } from '@ngrx/effects';
+import { authEffects } from '../../store/auth/store/effects';
 
 @Component({
     selector: 'tk-home',
