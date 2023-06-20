@@ -1,14 +1,19 @@
 import { inject, Injectable } from '@angular/core';
 import { Auth, GoogleAuthProvider, signInWithPopup } from '@angular/fire/auth';
-import { UserCredential, User } from '@firebase/auth';
+import { User, UserCredential } from '@firebase/auth';
 import { Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
+import { FirestoreActionsService } from '../../../services/firestore-actions/firestore-actions.service';
+import { Collections } from '../../../models/collections.enum';
+import { UserModel } from '../../../models/user.model';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthBackendService {
     private auth: Auth = inject(Auth);
+
+    constructor(private firestoreActions: FirestoreActionsService) {}
 
     public signInUser(): Observable<UserCredential> {
         return fromPromise(signInWithPopup(this.auth, new GoogleAuthProvider()));
@@ -20,5 +25,13 @@ export class AuthBackendService {
 
     public onAuthStateChanged(): Observable<User | null> {
         return new Observable(this.auth.onAuthStateChanged.bind(this.auth));
+    }
+
+    public saveUser(user: UserModel): Observable<void> {
+        return this.firestoreActions.addDocWithRef<UserModel>(Collections.users, user.uid, user);
+    }
+
+    public deleteUser(): Observable<void> {
+        return fromPromise((this.auth.currentUser as User)?.delete());
     }
 }

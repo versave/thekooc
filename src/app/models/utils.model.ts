@@ -15,3 +15,7 @@ export interface StateSlice<T> {
     loaded: boolean;
     error: Nullable<StoreError>;
 }
+
+export interface RequestStateSlice<T, P> extends StateSlice<T> {
+    requestArgs: P;
+}

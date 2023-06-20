@@ -12,7 +12,17 @@ export const appRoutes: Route[] = [
         canActivate: [genericRouteGuard],
     },
     {
-        path: 'account',
+        path: 'user',
+        loadComponent: () => import('./pages/account/account.component').then((mod) => mod.AccountComponent),
+        data: {
+            routeTitle: 'My account',
+            routeDescription: 'The Kooc description.',
+        },
+        // todo: auth guard
+        canActivate: [genericRouteGuard],
+    },
+    {
+        path: 'user/:uid',
         loadComponent: () => import('./pages/account/account.component').then((mod) => mod.AccountComponent),
         data: {
             routeTitle: 'My account',

@@ -3,10 +3,10 @@ import { Actions, concatLatestFrom, createEffect, ofType, OnInitEffects } from '
 import { Action, Store } from '@ngrx/store';
 import { AuthBackendService } from '../../services/auth.backend.service';
 import * as authActions from '../actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { resetSignInUser } from '../actions';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { LocalStorageService } from '../../../../services/local-storage/local-storage.service';
 import { LocalStorageKey } from '../../../../models/local-storage.model';
-import { resetSignInUser } from '../actions';
 import { PlatformService } from '../../../../services/platform/platform.service';
 
 @Injectable()
@@ -18,14 +18,18 @@ export class AuthEffects implements OnInitEffects {
                 switchMap(() =>
                     this.authBackendService.signInUser().pipe(
                         map((userCredential) => {
+                            // @ts-ignore
+                            const isNewUser = !!userCredential?._tokenResponse?.isNewUser;
                             const user = userCredential.user;
-                            this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true);
 
                             return authActions.signInUserSuccess({
                                 payload: {
-                                    uid: user.uid,
-                                    displayName: user.displayName || '',
-                                    image: user?.photoURL || undefined,
+                                    user: {
+                                        uid: user.uid,
+                                        displayName: user.displayName || '',
+                                        image: user?.photoURL || undefined,
+                                    },
+                                    isNew: isNewUser,
                                 },
                             });
                         }),
@@ -66,8 +70,12 @@ export class AuthEffects implements OnInitEffects {
                     if (manuallyLoggedIn) {
                         return this.authBackendService.onAuthStateChanged().pipe(
                             map((user) => {
-                                if (user) {
-                                    return authActions.signInUserSuccess({
+                                const manuallyLoggedInListenerTriggered = this.localStorageService.getItemOfType<
+                                    boolean | null
+                                >(LocalStorageKey.manualAuth);
+
+                                if (user && manuallyLoggedInListenerTriggered) {
+                                    return authActions.setSignInUser({
                                         payload: {
                                             uid: user?.uid || '',
                                             displayName: user?.displayName || '',
@@ -76,7 +84,7 @@ export class AuthEffects implements OnInitEffects {
                                     });
                                 }
 
-                                return { type: 'NO_ACTION' };
+                                return { type: 'NO_ACTION: Auto Sign In' };
                             }),
                             catchError((error) =>
                                 of(authActions.signInUserFail({ payload: { error, message: 'Auto sign in failed' } }))
@@ -94,6 +102,55 @@ export class AuthEffects implements OnInitEffects {
             this.actions$.pipe(
                 ofType(authActions.signOutUserSuccess),
                 map(() => authActions.resetSignInUser())
+            )
+    );
+
+    private signInUserSuccess$ = createEffect(
+        (): Actions =>
+            this.actions$.pipe(
+                ofType(authActions.signInUserSuccess),
+                switchMap((action) => {
+                    const { user, isNew } = action.payload;
+
+                    return isNew
+                        ? of(authActions.saveUser({ payload: user }))
+                        : of(authActions.setSignInUser({ payload: user }));
+                })
+            )
+    );
+
+    private setSignInUser$ = createEffect(
+        (): Observable<void> =>
+            this.actions$.pipe(
+                ofType(authActions.setSignInUser),
+                map(() => this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true))
+            ),
+        { dispatch: false }
+    );
+
+    private saveUser$ = createEffect(
+        (): Actions =>
+            this.actions$.pipe(
+                ofType(authActions.saveUser),
+                switchMap((action) =>
+                    this.authBackendService.saveUser(action.payload).pipe(
+                        map(() => authActions.saveUserSuccess({ payload: action.payload })),
+                        catchError((error) => {
+                            this.authBackendService.deleteUser();
+                            return of(
+                                authActions.saveUserFail({ payload: { error, message: 'Saving user to DB failed' } })
+                            );
+                        })
+                    )
+                )
+            )
+    );
+
+    private saveUserSuccess$ = createEffect(
+        (): Actions =>
+            this.actions$.pipe(
+                ofType(authActions.saveUserSuccess),
+                map((action) => authActions.setSignInUser({ payload: action.payload }))
             )
     );
 

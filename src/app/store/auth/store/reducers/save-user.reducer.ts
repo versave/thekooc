@@ -1,31 +1,33 @@
 import { createReducer, on } from '@ngrx/store';
 import * as AuthActions from '../actions/index';
-import { Nullable, StateSlice } from '../../../../models/utils.model';
+import { Nullable, RequestStateSlice } from '../../../../models/utils.model';
 import { UserModel } from '../../../../models/user.model';
 
-export type SignInState = StateSlice<Nullable<UserModel>>;
+export type SaveUserState = RequestStateSlice<Nullable<UserModel>, Nullable<UserModel>>;
 
-const initialState: SignInState = {
+const initialState: SaveUserState = {
     data: null,
+    requestArgs: null,
     loading: false,
     loaded: false,
     error: null,
 };
 
-export const signInReducer = createReducer(
+export const saveUserReducer = createReducer(
     initialState,
     on(
-        AuthActions.signInUser,
-        (state, action): SignInState => ({
+        AuthActions.saveUser,
+        (state, action): SaveUserState => ({
             ...initialState,
+            requestArgs: action.payload,
             loading: true,
             loaded: false,
             error: null,
         })
     ),
     on(
-        AuthActions.setSignInUser,
-        (state, action): SignInState => ({
+        AuthActions.saveUserSuccess,
+        (state, action): SaveUserState => ({
             ...state,
             data: action.payload,
             loading: false,
@@ -34,13 +36,12 @@ export const signInReducer = createReducer(
         })
     ),
     on(
-        AuthActions.signInUserFail,
-        (state, action): SignInState => ({
+        AuthActions.saveUserFail,
+        (state, action): SaveUserState => ({
             ...state,
             loading: false,
             loaded: false,
             error: action.payload,
         })
-    ),
-    on(AuthActions.resetSignInUser, (state, action): SignInState => initialState)
+    )
 );
