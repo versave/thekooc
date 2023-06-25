@@ -1,16 +1,19 @@
 import { PlatformService } from '../../../services/platform/platform.service';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { signInUser, signOutUser } from '../store/actions';
+import { getUser, signInUser, signOutUser } from '../store/actions';
 import { Observable } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
-import { selectSignInUser } from '../store/selectors';
+import { selectGetUserData, selectGetUserLoading, selectSignInUser, selectSignInUserLoading } from '../store/selectors';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthFacade {
     public userData$: Observable<UserModel | null> = this.store.select(selectSignInUser);
+    public userDataLoading$: Observable<boolean> = this.store.select(selectSignInUserLoading);
+    public getUserData$: Observable<UserModel | null> = this.store.select(selectGetUserData);
+    public getUserDataLoading$: Observable<boolean> = this.store.select(selectGetUserLoading);
 
     constructor(private store: Store, private platformService: PlatformService) {}
 
@@ -23,6 +26,12 @@ export class AuthFacade {
     public signOutUser(): void {
         if (this.platformService.isBrowser()) {
             this.store.dispatch(signOutUser());
+        }
+    }
+
+    public getUser(uid: string): void {
+        if (this.platformService.isBrowser()) {
+            this.store.dispatch(getUser({ payload: uid }));
         }
     }
 }

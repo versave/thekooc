@@ -6,6 +6,7 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { FirestoreActionsService } from '../../../services/firestore-actions/firestore-actions.service';
 import { Collections } from '../../../models/collections.enum';
 import { UserModel } from '../../../models/user.model';
+import { DocumentData, DocumentSnapshot } from '@angular/fire/firestore';
 
 @Injectable({
     providedIn: 'root',
@@ -33,5 +34,9 @@ export class AuthBackendService {
 
     public deleteUser(): Observable<void> {
         return fromPromise((this.auth.currentUser as User)?.delete());
+    }
+
+    public getUser(uid: string): Observable<DocumentSnapshot<UserModel>> {
+        return this.firestoreActions.getDocByRef<UserModel>(Collections.users, uid);
     }
 }

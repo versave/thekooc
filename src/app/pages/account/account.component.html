@@ -1,13 +1,15 @@
-<div class="intro">
-    <figure class="background" style="background-image: url('assets/icons/intro-background.svg')"></figure>
-</div>
-
-<div class="user">
-    <div class="app-container">
-        <tk-user-image [imageUrl]="user.image" size="180" />
-
-        <h2>{{user.displayName}}</h2>
-
-        <button (click)="signOut()">Sign out</button>
+<ng-container *ngIf="userData$ | async as user">
+    <div class="intro">
+        <figure class="background" style="background-image: url('assets/icons/intro-background.svg')"></figure>
     </div>
-</div>
+
+    <div class="user">
+        <div class="app-container">
+            <tk-user-image [imageUrl]="user.image" size="180" />
+
+            <h2>{{user.displayName}}</h2>
+
+            <button *ngIf="isOwner" (click)="signOut()">Sign out</button>
+        </div>
+    </div>
+</ng-container>

@@ -1,5 +1,7 @@
 import { Route } from '@angular/router';
 import { genericRouteGuard } from './guards/generic-route.guard';
+import { authRouteGuard } from './guards/auth-route.guard';
+import { getUserRouteGuard } from './guards/get-user-route.guard';
 
 export const appRoutes: Route[] = [
     {
@@ -18,8 +20,7 @@ export const appRoutes: Route[] = [
             routeTitle: 'My account',
             routeDescription: 'The Kooc description.',
         },
-        // todo: auth guard
-        canActivate: [genericRouteGuard],
+        canActivate: [genericRouteGuard, authRouteGuard],
     },
     {
         path: 'user/:uid',
@@ -28,8 +29,7 @@ export const appRoutes: Route[] = [
             routeTitle: 'My account',
             routeDescription: 'The Kooc description.',
         },
-        // todo: auth guard
-        canActivate: [genericRouteGuard],
+        canActivate: [genericRouteGuard, getUserRouteGuard],
     },
     {
         path: 'recipes',
@@ -48,8 +48,7 @@ export const appRoutes: Route[] = [
             routeTitle: 'New recipe',
             routeDescription: 'The Kooc description.',
         },
-        // todo: auth guard
-        canActivate: [genericRouteGuard],
+        canActivate: [genericRouteGuard, authRouteGuard],
     },
     {
         path: 'recipes/:slug',
@@ -59,5 +58,18 @@ export const appRoutes: Route[] = [
             routeDescription: 'The Kooc description.',
         },
         canActivate: [genericRouteGuard],
+    },
+    {
+        path: '404',
+        loadComponent: () => import('./pages/not-found/not-found.component').then((mod) => mod.NotFoundComponent),
+        data: {
+            routeTitle: '404 Not found',
+            routeDescription: 'The Kooc description.',
+        },
+        canActivate: [genericRouteGuard],
+    },
+    {
+        path: '**',
+        redirectTo: '404',
     },
 ];

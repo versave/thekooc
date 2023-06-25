@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { userMock } from '../../mocks/user.mock';
 import { ImageComponent } from '../../components/image/image.component';
@@ -6,6 +6,8 @@ import { UserImageComponent } from '../../components/user-image/user-image.compo
 import { AuthFacade } from '../../store/auth/services/auth.facade';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Observable, Subject } from 'rxjs';
+import { UserModel } from '../../models/user.model';
 
 @UntilDestroy()
 @Component({
@@ -17,9 +19,13 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AccountComponent implements OnInit {
-    public user = userMock;
+    public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
+    public getUserData$: Observable<UserModel | null> = this.authFacade.getUserData$;
+    public userData$: Observable<UserModel | null>;
 
-    constructor(private authFacade: AuthFacade, private route: ActivatedRoute) {}
+    public isOwner = false;
+
+    constructor(private authFacade: AuthFacade, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {}
 
     public ngOnInit(): void {
         this.getUser();
@@ -31,7 +37,14 @@ export class AccountComponent implements OnInit {
 
     private getUser(): void {
         this.route.params.pipe(untilDestroyed(this)).subscribe(({ uid }) => {
-            console.log('params', uid);
+            if (uid) {
+                this.userData$ = this.authFacade.getUserData$;
+            } else {
+                this.userData$ = this.singInUserData$;
+                this.isOwner = true;
+            }
+
+            this.cdr.detectChanges();
         });
     }
 }

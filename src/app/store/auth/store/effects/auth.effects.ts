@@ -8,6 +8,7 @@ import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { LocalStorageService } from '../../../../services/local-storage/local-storage.service';
 import { LocalStorageKey } from '../../../../models/local-storage.model';
 import { PlatformService } from '../../../../services/platform/platform.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects implements OnInitEffects {
@@ -101,7 +102,10 @@ export class AuthEffects implements OnInitEffects {
         (): Actions =>
             this.actions$.pipe(
                 ofType(authActions.signOutUserSuccess),
-                map(() => authActions.resetSignInUser())
+                map(() => {
+                    this.router.navigate(['/']);
+                    return authActions.resetSignInUser();
+                })
             )
     );
 
@@ -123,7 +127,10 @@ export class AuthEffects implements OnInitEffects {
         (): Observable<void> =>
             this.actions$.pipe(
                 ofType(authActions.setSignInUser),
-                map(() => this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true))
+                map(() => {
+                    this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true);
+                    void this.router.navigate(['/']);
+                })
             ),
         { dispatch: false }
     );
@@ -146,6 +153,31 @@ export class AuthEffects implements OnInitEffects {
             )
     );
 
+    private getUser$ = createEffect(
+        (): Actions =>
+            this.actions$.pipe(
+                ofType(authActions.getUser),
+                switchMap((action) =>
+                    this.authBackendService.getUser(action.payload).pipe(
+                        map((userSnapshot) => {
+                            if (userSnapshot.exists()) {
+                                return authActions.getUserSuccess({ payload: userSnapshot.data() });
+                            } else {
+                                return authActions.getUserFail({
+                                    payload: { error: null, message: 'User does not exist' },
+                                });
+                            }
+                        }),
+                        catchError((error) => {
+                            return of(
+                                authActions.getUserFail({ payload: { error, message: 'Saving user to DB failed' } })
+                            );
+                        })
+                    )
+                )
+            )
+    );
+
     private saveUserSuccess$ = createEffect(
         (): Actions =>
             this.actions$.pipe(
@@ -159,7 +191,8 @@ export class AuthEffects implements OnInitEffects {
         private store: Store,
         private authBackendService: AuthBackendService,
         private localStorageService: LocalStorageService,
-        private platformService: PlatformService
+        private platformService: PlatformService,
+        private router: Router
     ) {}
 
     public ngrxOnInitEffects(): Action {

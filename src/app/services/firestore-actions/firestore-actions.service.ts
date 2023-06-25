@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { collection, Firestore, addDoc, setDoc, doc } from '@angular/fire/firestore';
+import { collection, Firestore, addDoc, setDoc, doc, getDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Collections } from '../../models/collections.enum';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DocumentReference } from '@firebase/firestore';
+import { DocumentSnapshot, CollectionReference } from '@angular/fire/firestore';
 
 @Injectable({
     providedIn: 'root',
@@ -20,7 +21,12 @@ export class FirestoreActionsService {
         return fromPromise(setDoc(docRef, data as unknown));
     }
 
-    private getCollectionInstance(collectionName: Collections) {
+    public getDocByRef<T>(collectionName: Collections, ref: string): Observable<DocumentSnapshot<T>> {
+        const docRef = doc(this.firestore, collectionName, ref) as DocumentReference<T>;
+        return fromPromise(getDoc<T>(docRef));
+    }
+
+    private getCollectionInstance(collectionName: Collections): CollectionReference {
         return collection(this.firestore, collectionName);
     }
 }
