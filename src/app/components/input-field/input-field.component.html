@@ -12,6 +12,7 @@
                 [formControl]="$any(customControl)"
                 [type]="type"
                 [placeholder]="placeholderValue"
+                [maxlength]="maxLength"
                 (ngModelChange)="inputChange.emit($event)"
             >
 

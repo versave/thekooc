@@ -10,11 +10,13 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { authEffects } from './store/auth/store/effects';
 import { authReducers } from './store/auth/store/reducers';
+import { recipeReducers } from './store/recipe/store/reducers';
+import { recipeEffects } from './store/recipe/store/effects';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideEffects(authEffects),
-        provideStore({ auth: authReducers }),
+        provideEffects(...authEffects, ...recipeEffects),
+        provideStore({ auth: authReducers, recipe: recipeReducers }),
         provideStoreDevtools({
             maxAge: 25,
             logOnly: !isDevMode(),

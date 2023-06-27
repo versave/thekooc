@@ -17,6 +17,7 @@ export class InputFieldComponent extends CustomFormControl implements OnInit {
     @Input() public textarea = false;
     @Input() public placeholder = '';
     @Input() public errorWarning?: string;
+    @Input() public maxLength: number;
     @Output() public inputChange = new EventEmitter<string>();
 
     public isRequired = false;

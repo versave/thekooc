@@ -20,7 +20,7 @@
             <p>
                 <strong class="font-heading-6">Categories:</strong>
 
-                <a *ngFor="let category of recipeData.categories" [routerLink]="category.id">
+                <a *ngFor="let category of recipeData.categories" [routerLink]="">
                     <tk-pill>
                         <strong>{{category.name}}</strong>
                     </tk-pill>
@@ -30,7 +30,7 @@
             <p>
                 <strong class="font-heading-6">Tags:</strong>
 
-                <a *ngFor="let tag of recipeData.tags" [routerLink]="tag.id">
+                <a *ngFor="let tag of recipeData.tags" [routerLink]="">
                     <tk-pill>
                         <strong>{{tag.name}}</strong>
                     </tk-pill>

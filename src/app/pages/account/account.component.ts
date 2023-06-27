@@ -38,7 +38,7 @@ export class AccountComponent implements OnInit {
     private getUser(): void {
         this.route.params.pipe(untilDestroyed(this)).subscribe(({ uid }) => {
             if (uid) {
-                this.userData$ = this.authFacade.getUserData$;
+                this.userData$ = this.getUserData$;
             } else {
                 this.userData$ = this.singInUserData$;
                 this.isOwner = true;

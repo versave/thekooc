@@ -13,7 +13,7 @@ export class FirestoreActionsService {
     constructor(private firestore: Firestore) {}
 
     public addDoc<T>(collectionName: Collections, data: T): Observable<DocumentReference> {
-        return fromPromise(addDoc(this.getCollectionInstance(collectionName), { data }));
+        return fromPromise(addDoc(this.getCollectionInstance(collectionName), data as any));
     }
 
     public addDocWithRef<T>(collectionName: Collections, ref: string, data: T): Observable<void> {

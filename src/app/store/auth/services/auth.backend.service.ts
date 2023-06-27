@@ -6,7 +6,7 @@ import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { FirestoreActionsService } from '../../../services/firestore-actions/firestore-actions.service';
 import { Collections } from '../../../models/collections.enum';
 import { UserModel } from '../../../models/user.model';
-import { DocumentData, DocumentSnapshot } from '@angular/fire/firestore';
+import { DocumentSnapshot } from '@angular/fire/firestore';
 
 @Injectable({
     providedIn: 'root',

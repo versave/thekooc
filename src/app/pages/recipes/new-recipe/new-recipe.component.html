@@ -6,6 +6,10 @@
             <div class="row entry-row">
                 <h3>General information</h3>
 
+                <div class="private-checkbox">
+                    <tk-checkbox [customControl]="form.get(formControls.private)" label="Private" />
+                </div>
+
                 <div class="items">
                     <div class="col">
                         <tk-input-field
@@ -30,6 +34,7 @@
                             <tk-input-field
                                     *ngIf="form.get(formControls.hours) as control"
                                     [customControl]="control"
+                                    [maxLength]="2"
                                     placeholder="Hours"
                                     errorWarning="Please fill in"
                             />
@@ -39,6 +44,7 @@
                             <tk-input-field
                                     *ngIf="form.get(formControls.minutes) as control"
                                     [customControl]="control"
+                                    [maxLength]="2"
                                     placeholder="Minutes"
                                     errorWarning="Please fill in"
                             />

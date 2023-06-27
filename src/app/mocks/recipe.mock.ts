@@ -79,8 +79,8 @@ export const recipePageDataMock: FullRecipe = {
         'Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet',
     ],
     categories: [
-        { id: '1', key: 'pastry', name: 'Pastry' },
-        { id: '2', key: 'main-dish', name: 'Main Course' },
+        { key: 'pastry', name: 'Pastry' },
+        { key: 'main-dish', name: 'Main Course' },
     ],
     ingredients: [
         { name: 'Beef', quantity: '1kg' },
@@ -91,9 +91,9 @@ export const recipePageDataMock: FullRecipe = {
         { name: 'Spices', quantity: '50 grams' },
     ],
     tags: [
-        { id: '1', key: 'pastry', name: 'Pastry' },
-        { id: '2', key: 'heavy', name: 'Heavy' },
-        { id: '3', key: 'spicy', name: 'Spicy' },
+        { key: 'pastry', name: 'Pastry' },
+        { key: 'heavy', name: 'Heavy' },
+        { key: 'spicy', name: 'Spicy' },
     ],
     cookingTime: '1hr 15m',
     serves: 4,

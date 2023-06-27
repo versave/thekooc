@@ -27,13 +27,24 @@ export interface FullRecipe {
     author: UserModel;
 }
 
+export interface NewRecipeRequest {
+    title: string;
+    private: boolean;
+    steps: string[];
+    ingredients: string[];
+    categories: CategoryTag[];
+    tags: CategoryTag[];
+    cookingTime: number;
+    serves: number;
+    author: UserModel;
+}
+
 export interface Ingredient {
     name: string;
     quantity: string;
 }
 
 export interface CategoryTag {
-    id: string;
     key: string;
     name: string;
 }

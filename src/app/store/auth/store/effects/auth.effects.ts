@@ -116,9 +116,12 @@ export class AuthEffects implements OnInitEffects {
                 switchMap((action) => {
                     const { user, isNew } = action.payload;
 
-                    return isNew
-                        ? of(authActions.saveUser({ payload: user }))
-                        : of(authActions.setSignInUser({ payload: user }));
+                    if (isNew) {
+                        return of(authActions.saveUser({ payload: user }));
+                    } else {
+                        void this.router.navigate(['/']);
+                        return of(authActions.setSignInUser({ payload: user }));
+                    }
                 })
             )
     );
@@ -127,10 +130,7 @@ export class AuthEffects implements OnInitEffects {
         (): Observable<void> =>
             this.actions$.pipe(
                 ofType(authActions.setSignInUser),
-                map(() => {
-                    this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true);
-                    void this.router.navigate(['/']);
-                })
+                map(() => this.localStorageService.setItemOfType(LocalStorageKey.manualAuth, true))
             ),
         { dispatch: false }
     );
@@ -182,7 +182,10 @@ export class AuthEffects implements OnInitEffects {
         (): Actions =>
             this.actions$.pipe(
                 ofType(authActions.saveUserSuccess),
-                map((action) => authActions.setSignInUser({ payload: action.payload }))
+                map((action) => {
+                    void this.router.navigate(['/']);
+                    return authActions.setSignInUser({ payload: action.payload });
+                })
             )
     );
 
