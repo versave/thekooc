@@ -58,7 +58,7 @@
 
                 <div class="items">
                     <div *ngFor="let imagesControl of getFormArray(formControls.images); let idx = index" class="col">
-                        <tk-image-upload [customControl]="imagesControl" (inputChange)="handleImageChange($event)" />
+                        <tk-image-upload [image]="imagesControl.value?.imageUrl" (inputChange)="handleImageChange($event, idx)" />
                     </div>
                 </div>
             </div>
@@ -135,13 +135,10 @@
             <div class="actions">
                 <tk-button
                         buttonType="submit"
-                        label="СВЪРЖИ СЕ"
+                        label="Submit"
                         [fullWidth]="true"
                 />
             </div>
         </form>
     </div>
 </div>
-
-
-images with main image<br>

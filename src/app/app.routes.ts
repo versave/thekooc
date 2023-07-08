@@ -43,9 +43,19 @@ export const appRoutes: Route[] = [
     {
         path: 'recipes/new',
         loadComponent: () =>
-            import('./pages/recipes/new-recipe/new-recipe.component').then((mod) => mod.NewRecipeComponent),
+            import('./pages/recipes/recipe-editor/recipe-editor.component').then((mod) => mod.RecipeEditorComponent),
         data: {
             routeTitle: 'New recipe',
+            routeDescription: 'The Kooc description.',
+        },
+        canActivate: [genericRouteGuard, authRouteGuard],
+    },
+    {
+        path: 'recipes/edit/:id',
+        loadComponent: () =>
+            import('./pages/recipes/recipe-editor/recipe-editor.component').then((mod) => mod.RecipeEditorComponent),
+        data: {
+            routeTitle: 'Edit recipe',
             routeDescription: 'The Kooc description.',
         },
         canActivate: [genericRouteGuard, authRouteGuard],

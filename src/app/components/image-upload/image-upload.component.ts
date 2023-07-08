@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomFormControl } from '../../directives/custom-form-control.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -14,4 +14,7 @@ import { ImageComponent } from '../image/image.component';
 })
 export class ImageUploadComponent extends CustomFormControl {
     @Output() public inputChange = new EventEmitter<any>();
+    @Input() public image: string | null = null;
+
+    public placeholder = '/assets/icons/dish-placeholder.svg';
 }

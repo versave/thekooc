@@ -1,19 +1,20 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
     AbstractControl,
     FormArray,
     FormControl,
     ReactiveFormsModule,
+    UntypedFormControl,
     UntypedFormGroup,
     Validators,
 } from '@angular/forms';
 import { InputFieldComponent } from '../../../components/input-field/input-field.component';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { categories, tags } from '../../../mocks/category.mock';
+import { categories, tags } from '../../../static-data/static-data';
 import { CheckboxComponent } from '../../../components/checkbox/checkbox.component';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload.component';
-import { CategoryTag, NewRecipeRequest } from '../../../models/recipe.model';
+import { CategoryTag, NewRecipeArgs } from '../../../models/recipe.model';
 import { filter, Observable } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
@@ -32,23 +33,23 @@ import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
         CheckboxComponent,
         ImageUploadComponent,
     ],
-    templateUrl: './new-recipe.component.html',
-    styleUrls: ['./new-recipe.component.scss'],
+    templateUrl: './recipe-editor.component.html',
+    styleUrls: ['./recipe-editor.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NewRecipeComponent implements OnInit {
+export class RecipeEditorComponent implements OnInit {
     public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
 
     public form = new UntypedFormGroup({
         [FormControls.images]: new FormArray([
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
-            new FormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
+            new UntypedFormControl(null, []),
         ]),
         [FormControls.name]: new FormControl(null, [Validators.required]),
         [FormControls.serves]: new FormControl(null, [Validators.required, Validators.pattern(/^(0|[1-9][0-9]*)$/)]),
@@ -57,6 +58,8 @@ export class NewRecipeComponent implements OnInit {
             Validators.pattern(/^(0|[1-9][0-9]*)$/),
             Validators.maxLength(2),
         ]),
+        [FormControls.categories]: new FormArray(categories.map(() => new FormControl(false))),
+        [FormControls.tags]: new FormArray(tags.map(() => new FormControl(false))),
         [FormControls.minutes]: new FormControl(null, [
             Validators.required,
             Validators.pattern(/^(0|[1-9][0-9]*)$/),
@@ -83,11 +86,10 @@ export class NewRecipeComponent implements OnInit {
     public tags = tags;
     private user: UserModel;
 
-    constructor(private authFacade: AuthFacade, private recipeFacade: RecipeFacade) {}
+    constructor(private authFacade: AuthFacade, private recipeFacade: RecipeFacade, private cdr: ChangeDetectorRef) {}
 
     public ngOnInit(): void {
         this.setUser();
-        this.setFormFields();
     }
 
     public submitForm(): void {
@@ -108,12 +110,34 @@ export class NewRecipeComponent implements OnInit {
         this.form.setControl(control, new FormArray([...this.getFormArray(control), ...controls]));
     }
 
-    public handleImageChange(event: any): void {
-        console.log('event', event);
+    public handleImageChange(event: Event | null, idx: number): void {
+        if (event === null) {
+            this.patchFormArrayControl(FormControls.images, idx, null);
+            this.cdr.detectChanges();
+            return;
+        }
+
+        const target = event.target as HTMLInputElement;
+        const file = target.files?.[0];
+        const fileReader = new FileReader();
+        let imageUrl: string;
+
+        fileReader.readAsDataURL(file as Blob);
+        fileReader.onload = async () => {
+            imageUrl = fileReader.result as string;
+
+            this.patchFormArrayControl(FormControls.images, idx, { file, imageUrl });
+            this.cdr.detectChanges();
+        };
     }
 
-    private makeRequestFields(form: UntypedFormGroup): NewRecipeRequest {
+    private makeRequestFields(form: UntypedFormGroup): NewRecipeArgs {
+        const images: File[] = this.getFormArray(FormControls.images)
+            .map((control) => control.value?.file)
+            ?.filter(Boolean);
+
         return {
+            images,
             title: form.get(FormControls.name)?.value,
             private: form.get(FormControls.private)?.value,
             serves: parseInt(form.get(FormControls.serves)?.value),
@@ -144,11 +168,6 @@ export class NewRecipeComponent implements OnInit {
         return referenceArr.filter((_, index) => formBoolArr[index]);
     }
 
-    private setFormFields(): void {
-        this.form.addControl(FormControls.categories, new FormArray(this.categories.map(() => new FormControl(false))));
-        this.form.addControl(FormControls.tags, new FormArray(this.tags.map(() => new FormControl(false))));
-    }
-
     private setUser(): void {
         this.singInUserData$
             .pipe(
@@ -156,6 +175,10 @@ export class NewRecipeComponent implements OnInit {
                 untilDestroyed(this)
             )
             .subscribe((user) => (this.user = user as UserModel));
+    }
+
+    private patchFormArrayControl(control: FormControls, idx: number, value: unknown): void {
+        (this.form.get(control) as FormArray).at(idx).patchValue(value);
     }
 }
 

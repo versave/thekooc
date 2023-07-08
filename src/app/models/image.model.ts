@@ -17,3 +17,13 @@ export interface ImageData {
     srcsetUrl: string;
     mediaSrcsets: ImageSrcset[];
 }
+
+export interface ImageControl {
+    file: File;
+    imageUrl: string | null;
+}
+
+export interface ImageUploadRequest {
+    files: File[];
+    folder: string;
+}

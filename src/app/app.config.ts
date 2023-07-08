@@ -8,15 +8,13 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { authEffects } from './store/auth/store/effects';
-import { authReducers } from './store/auth/store/reducers';
-import { recipeReducers } from './store/recipe/store/reducers';
-import { recipeEffects } from './store/recipe/store/effects';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { storeEffects, storeReducers } from './store';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideEffects(...authEffects, ...recipeEffects),
-        provideStore({ auth: authReducers, recipe: recipeReducers }),
+        provideEffects(storeEffects),
+        provideStore(storeReducers),
         provideStoreDevtools({
             maxAge: 25,
             logOnly: !isDevMode(),
@@ -28,5 +26,6 @@ export const appConfig: ApplicationConfig = {
         importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
         importProvidersFrom(provideFirestore(() => getFirestore())),
         importProvidersFrom(provideAuth(() => getAuth())),
+        importProvidersFrom(provideStorage(() => getStorage())),
     ],
 };

@@ -27,7 +27,8 @@ export interface FullRecipe {
     author: UserModel;
 }
 
-export interface NewRecipeRequest {
+export interface NewRecipeArgs {
+    images: File[];
     title: string;
     private: boolean;
     steps: string[];
@@ -37,6 +38,10 @@ export interface NewRecipeRequest {
     cookingTime: number;
     serves: number;
     author: UserModel;
+}
+
+export interface NewRecipeRequest extends Omit<NewRecipeArgs, 'images'> {
+    images: string[];
 }
 
 export interface Ingredient {
