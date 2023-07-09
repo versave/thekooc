@@ -15,7 +15,7 @@ import { categories, tags } from '../../../static-data/static-data';
 import { CheckboxComponent } from '../../../components/checkbox/checkbox.component';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload.component';
 import { CategoryTag, NewRecipeArgs, RecipeData, UpdateRecipeArgs } from '../../../models/recipe.model';
-import { filter, Observable } from 'rxjs';
+import { filter, Observable, combineLatest } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -40,7 +40,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RecipeEditorComponent implements OnInit {
     public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
+
     public getRecipeData$: Observable<RecipeData | null> = this.recipeFacade.getRecipeData$;
+    private getRecipeLoading$: Observable<boolean> = this.recipeFacade.getRecipeLoading$;
+    private addRecipeLoading$: Observable<boolean> = this.recipeFacade.addRecipeLoading$;
+    private updateRecipeLoading$: Observable<boolean> = this.recipeFacade.updateRecipeLoading$;
 
     public form = new UntypedFormGroup({
         [FormControls.images]: new FormArray([
@@ -87,6 +91,7 @@ export class RecipeEditorComponent implements OnInit {
     public categories = categories;
     public tags = tags;
     public isEditMode = false;
+    public formLoading = false;
 
     private user: UserModel;
     private editedRecipeId: string;
@@ -101,6 +106,7 @@ export class RecipeEditorComponent implements OnInit {
     public ngOnInit(): void {
         this.setUser();
         this.getRecipe();
+        this.handleLoading();
     }
 
     public submitForm(): void {
@@ -258,6 +264,15 @@ export class RecipeEditorComponent implements OnInit {
                 this.patchFormArrayControl(formControl, idx, true);
             }
         });
+    }
+
+    private handleLoading(): void {
+        combineLatest([this.getRecipeLoading$, this.addRecipeLoading$, this.updateRecipeLoading$])
+            .pipe(untilDestroyed(this))
+            .subscribe((recipeLoading) => {
+                this.formLoading = recipeLoading.some((loading) => loading);
+                this.cdr.detectChanges();
+            });
     }
 }
 

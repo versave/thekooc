@@ -1,5 +1,6 @@
 @use "../../../theme/layout-variables" as *;
 @use "../../../theme/typography-variables" as *;
+@use "../../../theme/utils" as *;
 
 .container {
     padding: ($spacing-xxxl + $spacing-xl) 0;

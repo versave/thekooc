@@ -4,13 +4,21 @@ import { Store } from '@ngrx/store';
 import { addRecipe, getRecipe, updateRecipe } from '../store/actions';
 import { NewRecipeArgs, RecipeData, UpdateRecipeArgs } from '../../../models/recipe.model';
 import { Observable } from 'rxjs';
-import { selectGetRecipeData } from '../store/selectors';
+import {
+    selectAddRecipeLoading,
+    selectGetRecipeData,
+    selectGetRecipeLoading,
+    selectUpdateRecipeLoading,
+} from '../store/selectors';
 
 @Injectable({
     providedIn: 'root',
 })
 export class RecipeFacade {
     public getRecipeData$: Observable<RecipeData | null> = this.store.select(selectGetRecipeData);
+    public getRecipeLoading$: Observable<boolean> = this.store.select(selectGetRecipeLoading);
+    public addRecipeLoading$: Observable<boolean> = this.store.select(selectAddRecipeLoading);
+    public updateRecipeLoading$: Observable<boolean> = this.store.select(selectUpdateRecipeLoading);
 
     constructor(private store: Store, private platformService: PlatformService) {}
 

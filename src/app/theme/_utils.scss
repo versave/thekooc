@@ -1,0 +1,16 @@
+.loading {
+    animation: loadingPulse 1.5s infinite ease-in-out;
+    pointer-events: none;
+}
+
+@keyframes loadingPulse {
+    0% {
+        opacity: .7;
+    }
+    50% {
+        opacity: .3;
+    }
+    100% {
+        opacity: .7;
+    }
+}
