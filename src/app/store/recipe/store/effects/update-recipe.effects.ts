@@ -14,6 +14,7 @@ export class UpdateRecipeEffects {
     private updateRecipe$ = createEffect(
         (): Actions =>
             this.actions$.pipe(
+                // todo: Handle this action a second time in order to delete images that were removed
                 ofType(recipeActions.updateRecipe),
                 concatLatestFrom(() => this.store.select(selectSignInUser)),
                 switchMap(([action, user]) => {
