@@ -1,11 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import * as RecipeActions from '../actions/index';
 import { Nullable, RequestStateSlice } from '../../../../models/utils.model';
-import { NewRecipeArgs, RecipeData } from '../../../../models/recipe.model';
+import { RecipeData, UpdateRecipePayload } from '../../../../models/recipe.model';
 
-export type AddRecipeState = RequestStateSlice<Nullable<RecipeData>, Nullable<NewRecipeArgs>>;
+export type UpdateRecipeState = RequestStateSlice<Nullable<RecipeData>, Nullable<UpdateRecipePayload>>;
 
-const initialState: AddRecipeState = {
+const initialState: UpdateRecipeState = {
     data: null,
     requestArgs: null,
     loading: false,
@@ -13,11 +13,11 @@ const initialState: AddRecipeState = {
     error: null,
 };
 
-export const addRecipeReducer = createReducer(
+export const updateRecipeReducer = createReducer(
     initialState,
     on(
-        RecipeActions.addRecipe,
-        (state, action): AddRecipeState => ({
+        RecipeActions.updateRecipe,
+        (state, action): UpdateRecipeState => ({
             ...initialState,
             requestArgs: action.payload,
             loading: true,
@@ -26,8 +26,8 @@ export const addRecipeReducer = createReducer(
         })
     ),
     on(
-        RecipeActions.addRecipeSuccess,
-        (state, action): AddRecipeState => ({
+        RecipeActions.updateRecipeSuccess,
+        (state, action): UpdateRecipeState => ({
             ...state,
             data: action.payload,
             loading: false,
@@ -36,8 +36,8 @@ export const addRecipeReducer = createReducer(
         })
     ),
     on(
-        RecipeActions.addRecipeFail,
-        (state, action): AddRecipeState => ({
+        RecipeActions.updateRecipeFail,
+        (state, action): UpdateRecipeState => ({
             ...state,
             loading: false,
             loaded: false,

@@ -16,7 +16,7 @@ export class FirestoreActionsService {
         return fromPromise(addDoc(this.getCollectionInstance(collectionName), data as any));
     }
 
-    public addDocWithRef<T>(collectionName: Collections, ref: string, data: T): Observable<void> {
+    public setDoc<T>(collectionName: Collections, ref: string, data: T): Observable<void> {
         const docRef = doc(this.firestore, collectionName, ref);
         return fromPromise(setDoc(docRef, data as unknown));
     }

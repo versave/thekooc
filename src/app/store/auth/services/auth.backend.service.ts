@@ -29,7 +29,7 @@ export class AuthBackendService {
     }
 
     public saveUser(user: UserModel): Observable<void> {
-        return this.firestoreActions.addDocWithRef<UserModel>(Collections.users, user.uid, user);
+        return this.firestoreActions.setDoc<UserModel>(Collections.users, user.uid, user);
     }
 
     public deleteUser(): Observable<void> {

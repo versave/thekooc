@@ -1,5 +1,5 @@
 import { UserModel } from './user.model';
-import { ImageProperties } from './image.model';
+import { ImageControl, ImageProperties } from './image.model';
 
 export interface RecipeCard {
     id: string;
@@ -40,8 +40,17 @@ export interface NewRecipeArgs {
     author: UserModel;
 }
 
-export interface NewRecipeRequest extends Omit<NewRecipeArgs, 'images'> {
+export interface UpdateRecipeArgs extends Omit<NewRecipeArgs, 'images'> {
+    images: ImageControl[];
+}
+
+export interface RecipeData extends Omit<NewRecipeArgs, 'images'> {
     images: string[];
+}
+
+export interface UpdateRecipePayload {
+    recipeId: string;
+    recipe: UpdateRecipeArgs;
 }
 
 export interface Ingredient {

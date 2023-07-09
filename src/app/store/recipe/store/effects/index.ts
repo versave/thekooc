@@ -1,5 +1,9 @@
-import { RecipeEffects } from './recipe.effects';
+import { AddRecipeEffects } from './add-recipe.effects';
+import { GetRecipeEffects } from './get-recipe.effects';
+import { UpdateRecipeEffects } from './update-recipe.effects';
 
-export const recipeEffects = [RecipeEffects];
+export const recipeEffects = [GetRecipeEffects, AddRecipeEffects, UpdateRecipeEffects];
 
-export * from './recipe.effects';
+export * from './get-recipe.effects';
+export * from './add-recipe.effects';
+export * from './update-recipe.effects';

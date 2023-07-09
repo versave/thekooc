@@ -6,16 +6,16 @@ import * as imageActions from '../../../image/store/actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { RecipeBackendService } from '../../services/recipe.backend.service';
 import { selectAddRecipeRequest } from '../selectors';
-import { NewRecipeRequest } from '../../../../models/recipe.model';
-import { selectSignInState } from '../../../auth/store/selectors';
+import { RecipeData } from '../../../../models/recipe.model';
+import { selectSignInUser } from '../../../auth/store/selectors';
 
 @Injectable()
-export class RecipeEffects {
+export class AddRecipeEffects {
     private addRecipe$ = createEffect(
         (): Actions =>
             this.actions$.pipe(
                 ofType(recipeActions.addRecipe),
-                concatLatestFrom(() => this.store.select(selectSignInState)),
+                concatLatestFrom(() => this.store.select(selectSignInUser)),
                 switchMap(([action, user]) => {
                     const hasImages = action.payload.images.length > 0;
 
@@ -24,7 +24,7 @@ export class RecipeEffects {
                             imageActions.addRecipeImages({
                                 payload: {
                                     files: action.payload.images,
-                                    folder: `recipes/${user?.data?.uid}`,
+                                    folder: `recipes/${user?.uid}`,
                                 },
                             })
                         );
@@ -52,7 +52,7 @@ export class RecipeEffects {
                 ofType(imageActions.addRecipeImagesSuccess),
                 concatLatestFrom(() => this.store.select(selectAddRecipeRequest)),
                 switchMap(([action, recipeRequest]) => {
-                    const recipeWithImages = { ...recipeRequest, images: action.payload } as NewRecipeRequest;
+                    const recipeWithImages = { ...recipeRequest, images: action.payload } as RecipeData;
 
                     return this.recipeBackendService.addRecipe(recipeWithImages).pipe(
                         map(() => recipeActions.addRecipeSuccess({ payload: recipeWithImages })),

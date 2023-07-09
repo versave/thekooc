@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Collections } from '../../../models/collections.enum';
-import { NewRecipeRequest } from '../../../models/recipe.model';
-import { DocumentReference } from '@firebase/firestore';
 import { getDownloadURL, ref, Storage, uploadBytesResumable } from '@angular/fire/storage';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { ImageUploadRequest } from '../../../models/image.model';

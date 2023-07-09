@@ -103,7 +103,7 @@ export class AuthEffects implements OnInitEffects {
             this.actions$.pipe(
                 ofType(authActions.signOutUserSuccess),
                 map(() => {
-                    this.router.navigate(['/']);
+                    void this.router.navigate(['/']);
                     return authActions.resetSignInUser();
                 })
             )

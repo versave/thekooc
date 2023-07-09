@@ -14,12 +14,13 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { categories, tags } from '../../../static-data/static-data';
 import { CheckboxComponent } from '../../../components/checkbox/checkbox.component';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload.component';
-import { CategoryTag, NewRecipeArgs } from '../../../models/recipe.model';
+import { CategoryTag, NewRecipeArgs, RecipeData, UpdateRecipeArgs } from '../../../models/recipe.model';
 import { filter, Observable } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
+import { ActivatedRoute } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -39,6 +40,7 @@ import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
 })
 export class RecipeEditorComponent implements OnInit {
     public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
+    public getRecipeData$: Observable<RecipeData | null> = this.recipeFacade.getRecipeData$;
 
     public form = new UntypedFormGroup({
         [FormControls.images]: new FormArray([
@@ -84,12 +86,21 @@ export class RecipeEditorComponent implements OnInit {
     public formControls = FormControls;
     public categories = categories;
     public tags = tags;
-    private user: UserModel;
+    public isEditMode = false;
 
-    constructor(private authFacade: AuthFacade, private recipeFacade: RecipeFacade, private cdr: ChangeDetectorRef) {}
+    private user: UserModel;
+    private editedRecipeId: string;
+
+    constructor(
+        private authFacade: AuthFacade,
+        private recipeFacade: RecipeFacade,
+        private cdr: ChangeDetectorRef,
+        private route: ActivatedRoute
+    ) {}
 
     public ngOnInit(): void {
         this.setUser();
+        this.getRecipe();
     }
 
     public submitForm(): void {
@@ -98,7 +109,11 @@ export class RecipeEditorComponent implements OnInit {
             return;
         }
 
-        this.recipeFacade.addRecipe(this.makeRequestFields(this.form));
+        if (this.isEditMode) {
+            this.recipeFacade.updateRecipe(this.editedRecipeId, this.makeRequestFields(this.form) as UpdateRecipeArgs);
+        } else {
+            this.recipeFacade.addRecipe(this.makeRequestFields(this.form) as NewRecipeArgs);
+        }
     }
 
     public getFormArray(control: FormControls): AbstractControl[] {
@@ -131,13 +146,8 @@ export class RecipeEditorComponent implements OnInit {
         };
     }
 
-    private makeRequestFields(form: UntypedFormGroup): NewRecipeArgs {
-        const images: File[] = this.getFormArray(FormControls.images)
-            .map((control) => control.value?.file)
-            ?.filter(Boolean);
-
-        return {
-            images,
+    private makeRequestFields(form: UntypedFormGroup): NewRecipeArgs | UpdateRecipeArgs {
+        const requestFields = {
             title: form.get(FormControls.name)?.value,
             private: form.get(FormControls.private)?.value,
             serves: parseInt(form.get(FormControls.serves)?.value),
@@ -151,6 +161,22 @@ export class RecipeEditorComponent implements OnInit {
             tags: this.getCategoryTags(this.tags, form.get(FormControls.tags)?.value),
             author: this.user,
         };
+
+        if (this.isEditMode) {
+            return {
+                ...requestFields,
+                images: this.form.get(FormControls.images)?.value,
+            } as UpdateRecipeArgs;
+        } else {
+            const images: File[] = this.getFormArray(FormControls.images)
+                .map((control) => control.value?.file)
+                ?.filter(Boolean);
+
+            return {
+                ...requestFields,
+                images,
+            } as NewRecipeArgs;
+        }
     }
 
     private convertHoursAndMinutesToMilliseconds(hours: number, minutes: number): number {
@@ -179,6 +205,55 @@ export class RecipeEditorComponent implements OnInit {
 
     private patchFormArrayControl(control: FormControls, idx: number, value: unknown): void {
         (this.form.get(control) as FormArray).at(idx).patchValue(value);
+    }
+
+    private getRecipe(): void {
+        this.getRecipeData$
+            .pipe(filter(Boolean), untilDestroyed(this))
+            .subscribe((recipe) => this.populateEditForm(recipe));
+
+        this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
+            if (id) {
+                this.isEditMode = true;
+                this.editedRecipeId = id;
+                this.recipeFacade.getRecipe(id);
+            }
+        });
+    }
+
+    private populateEditForm(recipe: RecipeData): void {
+        this.form.patchValue({
+            [FormControls.name]: recipe.title,
+            [FormControls.private]: recipe.private,
+            [FormControls.serves]: recipe.serves,
+            [FormControls.hours]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).hours,
+            [FormControls.minutes]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).minutes,
+            [FormControls.ingredients]: recipe.ingredients,
+            [FormControls.steps]: recipe.steps,
+        });
+
+        recipe.images.forEach((image, idx) => {
+            const imageControlValue = { imageUrl: image, file: null };
+
+            this.patchFormArrayControl(FormControls.images, idx, imageControlValue);
+        });
+
+        this.patchCategoryTagsFormArrays(FormControls.categories, this.categories, recipe.categories);
+        this.patchCategoryTagsFormArrays(FormControls.tags, this.tags, recipe.tags);
+    }
+
+    private patchCategoryTagsFormArrays(
+        formControl: FormControls,
+        categoryTags: CategoryTag[],
+        recipeCategoryTags: CategoryTag[]
+    ): void {
+        categoryTags.forEach((categoryTag, idx) => {
+            const exists = recipeCategoryTags?.find((recipeItem) => recipeItem.key === categoryTag.key);
+
+            if (exists) {
+                this.patchFormArrayControl(formControl, idx, true);
+            }
+        });
     }
 }
 

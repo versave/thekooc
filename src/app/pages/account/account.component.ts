@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { userMock } from '../../mocks/user.mock';
 import { ImageComponent } from '../../components/image/image.component';
 import { UserImageComponent } from '../../components/user-image/user-image.component';
 import { AuthFacade } from '../../store/auth/services/auth.facade';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { UserModel } from '../../models/user.model';
 
 @UntilDestroy()

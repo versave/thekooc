@@ -19,11 +19,17 @@ export interface ImageData {
 }
 
 export interface ImageControl {
-    file: File;
+    file: File | null;
     imageUrl: string | null;
 }
 
 export interface ImageUploadRequest {
     files: File[];
+    folder: string;
+}
+
+export interface UpdateImageUploadRequest {
+    uploadableImages: File[];
+    originalImages: string[];
     folder: string;
 }
