@@ -209,7 +209,11 @@ export class RecipeEditorComponent implements OnInit {
 
     private getRecipe(): void {
         this.getRecipeData$
-            .pipe(filter(Boolean), untilDestroyed(this))
+            .pipe(
+                filter(Boolean),
+                filter(() => this.isEditMode),
+                untilDestroyed(this)
+            )
             .subscribe((recipe) => this.populateEditForm(recipe));
 
         this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
