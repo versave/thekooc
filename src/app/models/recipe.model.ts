@@ -48,6 +48,10 @@ export interface RecipeData extends Omit<NewRecipeArgs, 'images'> {
     images: string[];
 }
 
+export interface RecipeObject extends RecipeData {
+    id: string;
+}
+
 export interface UpdateRecipePayload {
     recipeId: string;
     recipe: UpdateRecipeArgs;

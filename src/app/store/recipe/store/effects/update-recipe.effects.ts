@@ -4,10 +4,11 @@ import { Store } from '@ngrx/store';
 import { RecipeBackendService } from '../../services/recipe.backend.service';
 import * as recipeActions from '../actions';
 import * as imageActions from '../../../image/store/actions';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { selectSignInUser } from '../../../auth/store/selectors';
 import { selectUpdateRecipeRequest } from '../selectors';
 import { RecipeData } from '../../../../models/recipe.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UpdateRecipeEffects {
@@ -47,7 +48,11 @@ export class UpdateRecipeEffects {
                                 data: requestData,
                             })
                             .pipe(
-                                map(() => recipeActions.updateRecipeSuccess({ payload: requestData })),
+                                map(() =>
+                                    recipeActions.updateRecipeSuccess({
+                                        payload: { ...requestData, id: action.payload.recipeId },
+                                    })
+                                ),
                                 catchError((error) =>
                                     of(
                                         recipeActions.updateRecipeFail({
@@ -61,6 +66,15 @@ export class UpdateRecipeEffects {
             )
     );
 
+    private updateRecipeSuccess$ = createEffect(
+        (): Observable<void> =>
+            this.actions$.pipe(
+                ofType(recipeActions.updateRecipeSuccess),
+                map((action) => void this.router.navigate([`recipes/${action.payload.id}`]))
+            ),
+        { dispatch: false }
+    );
+
     private updateRecipeImagesSuccess$ = createEffect(
         (): Actions =>
             this.actions$.pipe(
@@ -72,7 +86,11 @@ export class UpdateRecipeEffects {
                     return this.recipeBackendService
                         .updateRecipe({ recipeId: recipeRequest?.recipeId || '', data: recipeWithImages })
                         .pipe(
-                            map(() => recipeActions.updateRecipeSuccess({ payload: recipeWithImages })),
+                            map(() =>
+                                recipeActions.updateRecipeSuccess({
+                                    payload: { ...recipeWithImages, id: recipeRequest?.recipeId || '' },
+                                })
+                            ),
                             catchError((error) =>
                                 of(
                                     recipeActions.updateRecipeFail({
@@ -93,5 +111,10 @@ export class UpdateRecipeEffects {
             )
     );
 
-    constructor(private actions$: Actions, private store: Store, private recipeBackendService: RecipeBackendService) {}
+    constructor(
+        private actions$: Actions,
+        private store: Store,
+        private recipeBackendService: RecipeBackendService,
+        private router: Router
+    ) {}
 }

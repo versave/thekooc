@@ -26,7 +26,7 @@ export class GetRecipeEffects {
                                     throw new Error();
                                 }
 
-                                return recipeActions.getRecipeSuccess({ payload: data });
+                                return recipeActions.getRecipeSuccess({ payload: { ...data, id: recipe.id } });
                             } else {
                                 throw new Error();
                             }

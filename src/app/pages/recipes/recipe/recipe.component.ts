@@ -33,8 +33,8 @@ export class RecipeComponent implements OnInit {
     constructor(private route: ActivatedRoute) {}
 
     public ngOnInit(): void {
-        this.route.params.pipe(untilDestroyed(this)).subscribe(({ slug }) => {
-            console.log('slug', slug);
+        this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
+            console.log('id', id);
         });
     }
 

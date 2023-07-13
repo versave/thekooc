@@ -61,7 +61,7 @@ export const appRoutes: Route[] = [
         canActivate: [genericRouteGuard, authRouteGuard],
     },
     {
-        path: 'recipes/:slug',
+        path: 'recipes/:id',
         loadComponent: () => import('./pages/recipes/recipe/recipe.component').then((mod) => mod.RecipeComponent),
         data: {
             routeTitle: 'Recipe name',
