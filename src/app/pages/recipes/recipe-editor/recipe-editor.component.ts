@@ -118,9 +118,7 @@ export class RecipeEditorComponent implements OnInit {
         if (this.isEditMode) {
             this.recipeFacade.updateRecipe(this.editedRecipeId, this.makeRequestFields(this.form) as UpdateRecipeArgs);
         } else {
-            console.log('request', this.makeRequestFields(this.form));
-
-            // this.recipeFacade.addRecipe(this.makeRequestFields(this.form) as NewRecipeArgs);
+            this.recipeFacade.addRecipe(this.makeRequestFields(this.form) as NewRecipeArgs);
         }
     }
 
