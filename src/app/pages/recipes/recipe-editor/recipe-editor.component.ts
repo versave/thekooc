@@ -14,7 +14,7 @@ import { ButtonComponent } from '../../../components/button/button.component';
 import { categories, tags } from '../../../static-data/static-data';
 import { CheckboxComponent } from '../../../components/checkbox/checkbox.component';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload.component';
-import { CategoryTag, NewRecipeArgs, RecipeData, UpdateRecipeArgs } from '../../../models/recipe.model';
+import { CategoryTag, NewRecipeArgs, RecipeObject, UpdateRecipeArgs } from '../../../models/recipe.model';
 import { filter, Observable, combineLatest } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
@@ -41,7 +41,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RecipeEditorComponent implements OnInit {
     public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
 
-    public getRecipeData$: Observable<RecipeData | null> = this.recipeFacade.getRecipeData$;
+    public getRecipeData$: Observable<RecipeObject | null> = this.recipeFacade.getRecipeData$;
     private getRecipeLoading$: Observable<boolean> = this.recipeFacade.getRecipeLoading$;
     private addRecipeLoading$: Observable<boolean> = this.recipeFacade.addRecipeLoading$;
     private updateRecipeLoading$: Observable<boolean> = this.recipeFacade.updateRecipeLoading$;
@@ -92,6 +92,8 @@ export class RecipeEditorComponent implements OnInit {
     public tags = tags;
     public isEditMode = false;
     public formLoading = false;
+    public readonly ingredientControlMultiplier = 3;
+    public readonly stepControlMultiplier = 2;
 
     private user: UserModel;
     private editedRecipeId: string;
@@ -238,15 +240,13 @@ export class RecipeEditorComponent implements OnInit {
         });
     }
 
-    private populateEditForm(recipe: RecipeData): void {
+    private populateEditForm(recipe: RecipeObject): void {
         this.form.patchValue({
             [FormControls.name]: recipe.title,
             [FormControls.private]: recipe.private,
             [FormControls.serves]: recipe.serves,
             [FormControls.hours]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).hours,
             [FormControls.minutes]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).minutes,
-            [FormControls.ingredients]: recipe.ingredients,
-            [FormControls.steps]: recipe.steps,
         });
 
         recipe.images.forEach((image, idx) => {
@@ -255,6 +255,8 @@ export class RecipeEditorComponent implements OnInit {
             this.patchFormArrayControl(FormControls.images, idx, imageControlValue);
         });
 
+        this.patchStringFormArray(FormControls.ingredients, recipe.ingredients, this.ingredientControlMultiplier);
+        this.patchStringFormArray(FormControls.steps, recipe.steps, this.stepControlMultiplier);
         this.patchCategoryTagsFormArrays(FormControls.categories, this.categories, recipe.categories);
         this.patchCategoryTagsFormArrays(FormControls.tags, this.tags, recipe.tags);
     }
@@ -271,6 +273,26 @@ export class RecipeEditorComponent implements OnInit {
                 this.patchFormArrayControl(formControl, idx, true);
             }
         });
+    }
+
+    private patchStringFormArray(control: FormControls, recipeItemsArr: string[], controlMultiplier: number): void {
+        const controlItemsCount = this.getFormArray(control).length;
+        const recipeItemsCount = recipeItemsArr.length;
+        const calculateAdditionalFields = controlItemsCount % controlMultiplier !== 0;
+        let numberOfItemsToAdd = 0;
+
+        if (calculateAdditionalFields) {
+            const remainder = Math.abs((controlItemsCount % controlMultiplier) - controlMultiplier);
+            numberOfItemsToAdd = Math.abs(controlItemsCount - (remainder + recipeItemsCount));
+        } else {
+            numberOfItemsToAdd = Math.abs(controlItemsCount - recipeItemsCount);
+        }
+
+        if (numberOfItemsToAdd + recipeItemsCount > controlItemsCount) {
+            this.addMoreControlsOfType(control, numberOfItemsToAdd);
+        }
+
+        this.form.patchValue({ [control]: recipeItemsArr });
     }
 
     private handleLoading(): void {

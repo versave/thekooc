@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import * as RecipeActions from '../actions/index';
 import { Nullable, RequestStateSlice } from '../../../../models/utils.model';
-import { RecipeData } from '../../../../models/recipe.model';
+import { RecipeObject } from '../../../../models/recipe.model';
 
-export type GetRecipeState = RequestStateSlice<Nullable<RecipeData>, Nullable<string>>;
+export type GetRecipeState = RequestStateSlice<Nullable<RecipeObject>, Nullable<string>>;
 
 const initialState: GetRecipeState = {
     data: null,

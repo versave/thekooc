@@ -108,7 +108,7 @@
                         label="Add more ingredients"
                         buttonStyle="tertiary"
                         [fullWidth]="true"
-                        (click)="addMoreControlsOfType(formControls.ingredients, 3)"
+                        (click)="addMoreControlsOfType(formControls.ingredients, ingredientControlMultiplier)"
                 />
             </div>
 
@@ -132,7 +132,7 @@
                         label="Add more steps"
                         buttonStyle="tertiary"
                         [fullWidth]="true"
-                        (click)="addMoreControlsOfType(formControls.steps, 2)"
+                        (click)="addMoreControlsOfType(formControls.steps, stepControlMultiplier)"
                 />
             </div>
 
