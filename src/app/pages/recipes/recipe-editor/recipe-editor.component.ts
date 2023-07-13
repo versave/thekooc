@@ -118,7 +118,9 @@ export class RecipeEditorComponent implements OnInit {
         if (this.isEditMode) {
             this.recipeFacade.updateRecipe(this.editedRecipeId, this.makeRequestFields(this.form) as UpdateRecipeArgs);
         } else {
-            this.recipeFacade.addRecipe(this.makeRequestFields(this.form) as NewRecipeArgs);
+            console.log('request', this.makeRequestFields(this.form));
+
+            // this.recipeFacade.addRecipe(this.makeRequestFields(this.form) as NewRecipeArgs);
         }
     }
 
@@ -153,6 +155,13 @@ export class RecipeEditorComponent implements OnInit {
     }
 
     private makeRequestFields(form: UntypedFormGroup): NewRecipeArgs | UpdateRecipeArgs {
+        const ingredients = this.getFormArray(FormControls.ingredients)
+            ?.map((control) => control.value)
+            ?.filter(Boolean);
+        const steps = this.getFormArray(FormControls.steps)
+            ?.map((control) => control.value)
+            ?.filter(Boolean);
+
         const requestFields = {
             title: form.get(FormControls.name)?.value,
             private: form.get(FormControls.private)?.value,
@@ -161,8 +170,8 @@ export class RecipeEditorComponent implements OnInit {
                 parseInt(form.get(FormControls.hours)?.value),
                 parseInt(form.get(FormControls.minutes)?.value)
             ),
-            steps: form.get(FormControls.steps)?.value,
-            ingredients: form.get(FormControls.ingredients)?.value,
+            steps,
+            ingredients,
             categories: this.getCategoryTags(this.categories, form.get(FormControls.categories)?.value),
             tags: this.getCategoryTags(this.tags, form.get(FormControls.tags)?.value),
             author: this.user,
