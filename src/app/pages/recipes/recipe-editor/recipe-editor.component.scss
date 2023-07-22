@@ -1,5 +1,6 @@
 @use "../../../theme/layout-variables" as *;
 @use "../../../theme/typography-variables" as *;
+@use "../../../theme/color-variables" as *;
 @use "../../../theme/utils" as *;
 
 .container {
@@ -26,6 +27,12 @@ form {
 .row {
     h3 {
         margin-bottom: $spacing-m;
+
+        span {
+            display: block;
+            margin-top: $spacing-xxs;
+            font-weight: 400;
+        }
     }
 
     + .row {
@@ -85,4 +92,8 @@ form {
         font-size: $font-xxl + 5;
         line-height: 0.8;
     }
+}
+
+.error {
+    color: $color-red;
 }

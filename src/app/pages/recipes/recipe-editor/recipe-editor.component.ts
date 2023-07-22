@@ -92,6 +92,7 @@ export class RecipeEditorComponent implements OnInit {
     public tags = tags;
     public isEditMode = false;
     public formLoading = false;
+    public categoriesValid = true;
     public readonly ingredientControlMultiplier = 3;
     public readonly stepControlMultiplier = 2;
 
@@ -112,8 +113,7 @@ export class RecipeEditorComponent implements OnInit {
     }
 
     public submitForm(): void {
-        if (this.form.invalid) {
-            this.form.markAllAsTouched();
+        if (!this.validateForm()) {
             return;
         }
 
@@ -302,6 +302,17 @@ export class RecipeEditorComponent implements OnInit {
                 this.formLoading = recipeLoading.some((loading) => loading);
                 this.cdr.detectChanges();
             });
+    }
+
+    private validateForm(): boolean {
+        const formInvalid = this.form.invalid;
+        this.categoriesValid = this.getFormArray(FormControls.categories).some((control) => !!control.value);
+
+        if (formInvalid) {
+            this.form.markAllAsTouched();
+        }
+
+        return !formInvalid && this.categoriesValid;
     }
 }
 

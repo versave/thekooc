@@ -68,7 +68,11 @@
             </div>
 
             <div class="row checkbox-row">
-                <h3>Categories</h3>
+                <h3>
+                    Categories *
+
+                    <span *ngIf="!categoriesValid" class="error font-body">Please fill in</span>
+                </h3>
 
                 <div class="items">
                     <div *ngFor="let categoryControl of getFormArray(formControls.categories); let idx = index" class="col">
