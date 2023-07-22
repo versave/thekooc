@@ -21,6 +21,7 @@ import { AuthFacade } from '../../../store/auth/services/auth.facade';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
 import { ActivatedRoute } from '@angular/router';
+import { TransformService } from '../../../services/transform/transform.service';
 
 @UntilDestroy()
 @Component({
@@ -103,7 +104,8 @@ export class RecipeEditorComponent implements OnInit {
         private authFacade: AuthFacade,
         private recipeFacade: RecipeFacade,
         private cdr: ChangeDetectorRef,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private transformService: TransformService
     ) {}
 
     public ngOnInit(): void {
@@ -166,7 +168,7 @@ export class RecipeEditorComponent implements OnInit {
             title: form.get(FormControls.name)?.value,
             private: form.get(FormControls.private)?.value,
             serves: parseInt(form.get(FormControls.serves)?.value),
-            cookingTime: this.convertHoursAndMinutesToMilliseconds(
+            cookingTime: this.transformService.convertHoursAndMinutesToMilliseconds(
                 parseInt(form.get(FormControls.hours)?.value),
                 parseInt(form.get(FormControls.minutes)?.value)
             ),
@@ -192,17 +194,6 @@ export class RecipeEditorComponent implements OnInit {
                 images,
             } as NewRecipeArgs;
         }
-    }
-
-    private convertHoursAndMinutesToMilliseconds(hours: number, minutes: number): number {
-        return (hours * 60 + minutes) * 60 * 1000;
-    }
-
-    private convertMillisecondsToHoursAndMinutes(milliseconds: number): { hours: number; minutes: number } {
-        const hours = Math.floor(milliseconds / 1000 / 60 / 60);
-        const minutes = Math.floor((milliseconds / 1000 / 60 / 60 - hours) * 60);
-
-        return { hours, minutes };
     }
 
     private getCategoryTags(referenceArr: CategoryTag[], formBoolArr: boolean[]): CategoryTag[] {
@@ -245,8 +236,9 @@ export class RecipeEditorComponent implements OnInit {
             [FormControls.name]: recipe.title,
             [FormControls.private]: recipe.private,
             [FormControls.serves]: recipe.serves,
-            [FormControls.hours]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).hours,
-            [FormControls.minutes]: this.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).minutes,
+            [FormControls.hours]: this.transformService.convertMillisecondsToHoursAndMinutes(recipe.cookingTime).hours,
+            [FormControls.minutes]: this.transformService.convertMillisecondsToHoursAndMinutes(recipe.cookingTime)
+                .minutes,
         });
 
         recipe.images.forEach((image, idx) => {

@@ -19,3 +19,8 @@ export interface StateSlice<T> {
 export interface RequestStateSlice<T, P> extends StateSlice<T> {
     requestArgs: P;
 }
+
+export interface HoursAndMinutes {
+    hours: number;
+    minutes: number;
+}

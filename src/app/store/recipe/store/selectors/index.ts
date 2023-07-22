@@ -14,3 +14,6 @@ export const selectAddRecipeLoading = createSelector(selectAddRecipeState, (stat
 export const selectUpdateRecipeState = createSelector(selectRecipeState, (state) => state?.updateRecipe || null);
 export const selectUpdateRecipeRequest = createSelector(selectUpdateRecipeState, (state) => state?.requestArgs || null);
 export const selectUpdateRecipeLoading = createSelector(selectUpdateRecipeState, (state) => !!state?.loading);
+
+export const selectDeleteRecipeState = createSelector(selectRecipeState, (state) => state?.deleteRecipe || null);
+export const selectDeleteRecipeLoading = createSelector(selectDeleteRecipeState, (state) => !!state?.loading);

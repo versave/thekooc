@@ -5,7 +5,7 @@ import { UserImageComponent } from '../../components/user-image/user-image.compo
 import { AuthFacade } from '../../store/auth/services/auth.facade';
 import { ActivatedRoute } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { UserModel } from '../../models/user.model';
 
 @UntilDestroy()
@@ -35,15 +35,18 @@ export class AccountComponent implements OnInit {
     }
 
     private getUser(): void {
-        this.route.params.pipe(untilDestroyed(this)).subscribe(({ uid }) => {
-            if (uid) {
-                this.userData$ = this.getUserData$;
-            } else {
-                this.userData$ = this.singInUserData$;
-                this.isOwner = true;
-            }
+        combineLatest([this.route.params, this.singInUserData$])
+            .pipe(untilDestroyed(this))
+            .subscribe(([{ uid }, singInUserData]) => {
+                if (uid) {
+                    this.userData$ = uid === singInUserData?.uid ? this.singInUserData$ : this.getUserData$;
+                    this.isOwner = uid === singInUserData?.uid;
+                } else {
+                    this.userData$ = this.singInUserData$;
+                    this.isOwner = true;
+                }
 
-            this.cdr.detectChanges();
-        });
+                this.cdr.detectChanges();
+            });
     }
 }

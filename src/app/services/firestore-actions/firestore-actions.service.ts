@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, Firestore, addDoc, setDoc, doc, getDoc } from '@angular/fire/firestore';
+import { collection, Firestore, addDoc, setDoc, doc, getDoc, deleteDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Collections } from '../../models/collections.enum';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
@@ -24,6 +24,11 @@ export class FirestoreActionsService {
     public getDocByRef<T>(collectionName: Collections, ref: string): Observable<DocumentSnapshot<T>> {
         const docRef = doc(this.firestore, collectionName, ref) as DocumentReference<T>;
         return fromPromise(getDoc<T>(docRef));
+    }
+
+    public deleteDocByRef(collectionName: Collections, ref: string): Observable<void> {
+        const docRef = doc(this.firestore, collectionName, ref);
+        return fromPromise(deleteDoc(docRef));
     }
 
     private getCollectionInstance(collectionName: Collections): CollectionReference {

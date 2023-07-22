@@ -2,13 +2,17 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FullRecipe, Ingredient } from '../../../models/recipe.model';
-import { recipePageDataMock } from '../../../mocks/recipe.mock';
 import { GalleryComponent } from '../../../components/gallery/gallery.component';
 import { PillComponent } from '../../../components/pill/pill.component';
-import { userMock } from '../../../mocks/user.mock';
 import { ImageComponent } from '../../../components/image/image.component';
 import { UserImageComponent } from '../../../components/user-image/user-image.component';
+import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
+import { TransformService } from '../../../services/transform/transform.service';
+import { HoursAndMinutes } from '../../../models/utils.model';
+import { ImageProperties } from '../../../models/image.model';
+import { AuthFacade } from '../../../store/auth/services/auth.facade';
+import { ButtonComponent } from '../../../components/button/button.component';
+import { UserModel } from '../../../models/user.model';
 
 @UntilDestroy()
 @Component({
@@ -22,25 +26,48 @@ import { UserImageComponent } from '../../../components/user-image/user-image.co
         PillComponent,
         ImageComponent,
         UserImageComponent,
+        ButtonComponent,
     ],
     templateUrl: './recipe.component.html',
     styleUrls: ['./recipe.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeComponent implements OnInit {
-    public recipeData: FullRecipe = recipePageDataMock;
+    public recipeData$ = this.recipeFacade.getRecipeData$;
+    public deleteRecipeLoading$ = this.recipeFacade.deleteRecipeLoading$;
+    public userData$ = this.authFacade.userData$;
 
-    constructor(private route: ActivatedRoute) {}
+    public user: UserModel | null = null;
+
+    constructor(
+        private route: ActivatedRoute,
+        private recipeFacade: RecipeFacade,
+        private transformService: TransformService,
+        private authFacade: AuthFacade
+    ) {}
 
     public ngOnInit(): void {
-        this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
-            console.log('id', id);
-        });
+        this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => this.recipeFacade.getRecipe(id));
+        this.getUser();
     }
 
-    public trackIngredients(index: number, item: Ingredient): string {
-        return `${index}-${item.name}`;
+    public trackIngredients(index: number, item: string): string {
+        return `${index}-${item}`;
     }
 
-    protected readonly userMock = userMock;
+    public transformCookingTime(milliseconds: number): HoursAndMinutes {
+        return this.transformService.convertMillisecondsToHoursAndMinutes(milliseconds);
+    }
+
+    public transformImages(images: string[]): ImageProperties[] {
+        return images.map((image) => ({ path: image, hasRetina: false, alt: 'Recipe image' }));
+    }
+
+    public deleteRecipe(id: string): void {
+        this.recipeFacade.deleteRecipe(id);
+    }
+
+    private getUser(): void {
+        this.userData$.pipe(untilDestroyed(this)).subscribe((user) => (this.user = user));
+    }
 }

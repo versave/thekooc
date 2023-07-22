@@ -5,7 +5,6 @@ import { Collections } from '../../../models/collections.enum';
 import { RecipeData } from '../../../models/recipe.model';
 import { DocumentReference } from '@firebase/firestore';
 import { DocumentSnapshot } from '@angular/fire/firestore';
-import { UserModel } from '../../../models/user.model';
 
 @Injectable({
     providedIn: 'root',
@@ -25,7 +24,7 @@ export class RecipeBackendService {
         return this.firestoreActions.setDoc<RecipeData>(Collections.recipes, recipe.recipeId, recipe.data);
     }
 
-    public saveUser(user: UserModel): Observable<void> {
-        return this.firestoreActions.setDoc<UserModel>(Collections.users, user.uid, user);
+    public deleteRecipe(recipeId: string): Observable<void> {
+        return this.firestoreActions.deleteDocByRef(Collections.recipes, recipeId);
     }
 }

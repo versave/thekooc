@@ -1,11 +1,12 @@
 import { PlatformService } from '../../../services/platform/platform.service';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { addRecipe, getRecipe, updateRecipe } from '../store/actions';
+import { addRecipe, getRecipe, updateRecipe, deleteRecipe } from '../store/actions';
 import { NewRecipeArgs, RecipeObject, UpdateRecipeArgs } from '../../../models/recipe.model';
 import { Observable } from 'rxjs';
 import {
     selectAddRecipeLoading,
+    selectDeleteRecipeLoading,
     selectGetRecipeData,
     selectGetRecipeLoading,
     selectUpdateRecipeLoading,
@@ -19,6 +20,7 @@ export class RecipeFacade {
     public getRecipeLoading$: Observable<boolean> = this.store.select(selectGetRecipeLoading);
     public addRecipeLoading$: Observable<boolean> = this.store.select(selectAddRecipeLoading);
     public updateRecipeLoading$: Observable<boolean> = this.store.select(selectUpdateRecipeLoading);
+    public deleteRecipeLoading$: Observable<boolean> = this.store.select(selectDeleteRecipeLoading);
 
     constructor(private store: Store, private platformService: PlatformService) {}
 
@@ -41,6 +43,12 @@ export class RecipeFacade {
                     payload: { recipeId, recipe },
                 })
             );
+        }
+    }
+
+    public deleteRecipe(recipeId: string): void {
+        if (this.platformService.isBrowser()) {
+            this.store.dispatch(deleteRecipe({ payload: recipeId }));
         }
     }
 }

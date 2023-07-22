@@ -1,6 +1,7 @@
 @use "../../../theme/color-variables" as *;
 @use "../../../theme/typography-variables" as *;
 @use "../../../theme/layout-variables" as *;
+@use "../../../theme/utils" as *;
 
 .intro {
     margin-bottom: $spacing-xl;
@@ -118,8 +119,13 @@
     }
 }
 
-.author-info {
+.author {
     display: flex;
+    justify-content: center;
+}
+
+.author-info {
+    display: inline-flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
@@ -130,5 +136,15 @@
 
     h2 {
         color: $color-white;
+    }
+}
+
+.actions {
+    margin-top: $spacing-m;
+
+    .app-container {
+        display: flex;
+        justify-content: flex-end;
+        gap: $spacing-xs;
     }
 }

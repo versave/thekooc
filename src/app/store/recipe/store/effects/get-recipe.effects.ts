@@ -13,10 +13,10 @@ export class GetRecipeEffects {
         (): Actions =>
             this.actions$.pipe(
                 ofType(recipeActions.getRecipe),
-                concatLatestFrom(() => this.store.select(selectSignInUser)),
-                switchMap(([action, user]) => {
+                switchMap((action) => {
                     return this.recipeBackendService.getRecipe(action.payload).pipe(
-                        map((recipe) => {
+                        concatLatestFrom(() => this.store.select(selectSignInUser)),
+                        map(([recipe, user]) => {
                             const recipeExists = recipe.exists();
 
                             if (recipeExists) {

@@ -168,11 +168,13 @@ export class AuthEffects implements OnInitEffects {
                                 });
                             }
                         }),
-                        catchError((error) => {
-                            return of(
-                                authActions.getUserFail({ payload: { error, message: 'Saving user to DB failed' } })
-                            );
-                        })
+                        catchError((error) =>
+                            of(
+                                authActions.getUserFail({
+                                    payload: { error, message: 'Trying to get user from DB failed' },
+                                })
+                            )
+                        )
                     )
                 )
             )

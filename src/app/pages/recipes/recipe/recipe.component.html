@@ -1,83 +1,105 @@
-<div class="intro">
-    <div class="app-container">
-        <h1>{{recipeData.title}}</h1>
+<div *ngIf="recipeData$ | async as recipeData" [class.loading]="deleteRecipeLoading$ | async">
+    <div class="intro">
+        <div class="app-container">
+            <h1>{{recipeData.title}}</h1>
 
-        <div class="meta">
-            <p class="meta-item font-heading-4">
-                <img ngSrc="/assets/icons/prep-time.svg" width="40" height="40" alt="clock icon">
+            <div class="meta">
+                <p class="meta-item font-heading-4">
+                    <img ngSrc="/assets/icons/prep-time.svg" width="40" height="40" alt="clock icon">
 
-                <strong>{{recipeData.cookingTime}}</strong>
-            </p>
+                    <strong *ngIf="transformCookingTime(recipeData.cookingTime) as cookingTime">
+                        {{cookingTime.hours}} : {{cookingTime.minutes}}
+                    </strong>
+                </p>
 
-            <p class="meta-item font-heading-4">
-                <img ngSrc="/assets/icons/serves.svg" width="40" height="40" alt="serves icon">
+                <p class="meta-item font-heading-4">
+                    <img ngSrc="/assets/icons/serves.svg" width="40" height="40" alt="serves icon">
 
-                <strong>{{recipeData.serves}}</strong>
-            </p>
-        </div>
-
-        <div class="category-info">
-            <p>
-                <strong class="font-heading-6">Categories:</strong>
-
-                <a *ngFor="let category of recipeData.categories" [routerLink]="">
-                    <tk-pill>
-                        <strong>{{category.name}}</strong>
-                    </tk-pill>
-                </a>
-            </p>
-
-            <p>
-                <strong class="font-heading-6">Tags:</strong>
-
-                <a *ngFor="let tag of recipeData.tags" [routerLink]="">
-                    <tk-pill>
-                        <strong>{{tag.name}}</strong>
-                    </tk-pill>
-                </a>
-            </p>
-        </div>
-
-        <a class="author-info" [routerLink]="'account/' + recipeData.author.uid">
-            <tk-user-image [imageUrl]="recipeData.author.image" size="100" />
-
-            <h2>{{recipeData.author.displayName}}</h2>
-        </a>
-    </div>
-</div>
-
-<div *ngIf="recipeData?.images as images" class="gallery">
-    <div class="app-container">
-        <h2>Gallery</h2>
-
-        <tk-gallery [images]="images" />
-    </div>
-</div>
-
-<div class="recipe">
-    <div class="app-container">
-        <h2>Recipe</h2>
-
-        <div class="cols">
-            <div class="ingredients">
-                <h3>Ingredients</h3>
-
-                <ul class="font-heading-5">
-                    <li *ngFor="let ingredient of recipeData.ingredients; trackBy: trackIngredients">
-                        <strong>{{ingredient.name}}: </strong>
-
-                        <span>{{ingredient.quantity}}</span>
-                    </li>
-                </ul>
+                    <strong>{{recipeData.serves}}</strong>
+                </p>
             </div>
 
-            <div class="steps">
-                <h3>Steps</h3>
+            <div *ngIf="recipeData.categories.length || recipeData.tags.length" class="category-info">
+                <p *ngIf="recipeData.categories.length">
+                    <strong class="font-heading-6">Categories:</strong>
 
-                <div *ngFor="let step of recipeData.steps; let idx = index" class="step">
-                    <strong *ngIf="recipeData.steps.length > 1" class="font-heading-5">Step {{idx + 1}}</strong>
+                    <a *ngFor="let category of recipeData.categories" routerLink="/recipes">
+                        <tk-pill>
+                            <strong>{{category.name}}</strong>
+                        </tk-pill>
+                    </a>
+                </p>
 
-                    <p>{{step}}</p>
+                <p *ngIf="recipeData.tags.length">
+                    <strong class="font-heading-6">Tags:</strong>
+
+                    <a *ngFor="let tag of recipeData.tags" [queryParams]="{ tag: tag.key }" routerLink="/recipes">
+                        <tk-pill>
+                            <strong>{{tag.name}}</strong>
+                        </tk-pill>
+                    </a>
+                </p>
+            </div>
+
+            <div class="author">
+                <a class="author-info" [routerLink]="'/user/' + recipeData.author.uid">
+                    <tk-user-image [imageUrl]="recipeData.author.image" size="100" />
+
+                    <h2>{{recipeData.author.displayName}}</h2>
+                </a>
+            </div>
+        </div>
+
+        <div *ngIf="user?.uid === recipeData.author.uid" class="actions">
+            <div class="app-container">
+                <tk-button
+                        label="Edit recipe"
+                        elementType="link"
+                        [href]="'/recipes/edit/' + recipeData.id"
+                ></tk-button>
+
+                <tk-button
+                        label="Delete recipe"
+                        buttonStyle="danger"
+                        (click)="deleteRecipe(recipeData.id)"
+                ></tk-button>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="recipeData?.images as images">
+        <div *ngIf="images?.length" class="gallery">
+            <div class="app-container">
+                <h2>Gallery</h2>
+
+                <tk-gallery [images]="transformImages(images)" />
+            </div>
+        </div>
+    </ng-container>
+
+    <div class="recipe">
+        <div class="app-container">
+            <h2>Recipe</h2>
+
+            <div class="cols">
+                <div class="ingredients">
+                    <h3>Ingredients</h3>
+
+                    <ul class="font-heading-5">
+                        <li *ngFor="let ingredient of recipeData.ingredients; trackBy: trackIngredients">
+                            {{ingredient}}
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="steps">
+                    <h3>Steps</h3>
+
+                    <div *ngFor="let step of recipeData.steps; let idx = index" class="step">
+                        <strong *ngIf="recipeData.steps.length > 1" class="font-heading-5">Step {{idx + 1}}</strong>
+
+                        <p>{{step}}</p>
+                    </div>
                 </div>
             </div>
         </div>
