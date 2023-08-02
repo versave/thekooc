@@ -8,12 +8,15 @@ import { CardGridComponent } from '../../components/card-grid/card-grid.componen
 import { FiltersComponent } from '../../components/filters/filters.component';
 import { FilterType, FilterValues } from '../../models/filter.model';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { UserModel } from '../../models/user.model';
+import { AuthFacade } from '../../store/auth/services/auth.facade';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @UntilDestroy()
 @Component({
     selector: 'tk-recipes',
     standalone: true,
-    imports: [CommonModule, RouterLink, CardGridComponent, FiltersComponent],
+    imports: [CommonModule, RouterLink, CardGridComponent, FiltersComponent, ButtonComponent],
     templateUrl: './recipes.component.html',
     styleUrls: ['./recipes.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,8 +24,14 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 export class RecipesComponent implements OnInit {
     public recipesData$: Observable<RecipeObject[] | null> = this.recipesFacade.getRecipesData$;
     public recipesLoading$: Observable<boolean> = this.recipesFacade.getRecipesLoading$;
+    public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
 
-    constructor(private recipesFacade: RecipesFacade, private router: Router, private route: ActivatedRoute) {}
+    constructor(
+        private recipesFacade: RecipesFacade,
+        private router: Router,
+        private route: ActivatedRoute,
+        private authFacade: AuthFacade
+    ) {}
 
     public ngOnInit(): void {
         this.route.queryParams

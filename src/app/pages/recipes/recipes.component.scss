@@ -18,6 +18,16 @@
     width: clamp(150px, 22%, 288px);
     margin-bottom: auto;
     padding-right: $spacing-m;
+
+    > tk-button ::ng-deep {
+        margin-bottom: $spacing-s;
+
+        a {
+            padding-left: $spacing-xs;
+            padding-right: $spacing-xs;
+            font-size: $font-xs;
+        }
+    }
 }
 
 .items {
