@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { recipePageDataMock } from '../../mocks/recipe.mock';
-import { ImageProperties } from '../../models/image.model';
 import { ImageComponent } from '../image/image.component';
 
 @Component({

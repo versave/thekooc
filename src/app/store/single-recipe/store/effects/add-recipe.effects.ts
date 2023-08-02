@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import * as recipeActions from '../actions';
 import * as imageActions from '../../../image/store/actions';
 import { catchError, map, Observable, of, switchMap } from 'rxjs';
-import { RecipeBackendService } from '../../services/recipe.backend.service';
+import { SingleRecipeBackendService } from '../../services/single-recipe.backend.service';
 import { selectAddRecipeRequest } from '../selectors';
 import { RecipeData } from '../../../../models/recipe.model';
 import { selectSignInUser } from '../../../auth/store/selectors';
@@ -93,7 +93,7 @@ export class AddRecipeEffects {
     constructor(
         private actions$: Actions,
         private store: Store,
-        private recipeBackendService: RecipeBackendService,
+        private recipeBackendService: SingleRecipeBackendService,
         private router: Router
     ) {}
 }

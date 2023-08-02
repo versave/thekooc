@@ -9,7 +9,7 @@ import { DocumentSnapshot } from '@angular/fire/firestore';
 @Injectable({
     providedIn: 'root',
 })
-export class RecipeBackendService {
+export class SingleRecipeBackendService {
     constructor(private firestoreActions: FirestoreActionsService) {}
 
     public getRecipe(recipeId: string): Observable<DocumentSnapshot<RecipeData>> {

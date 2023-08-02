@@ -1,0 +1,11 @@
+@use "../../theme/layout-variables" as *;
+
+.checkboxes {
+    tk-checkbox {
+        display: block;
+
+        + tk-checkbox {
+            margin-top: $spacing-xs;
+        }
+    }
+}

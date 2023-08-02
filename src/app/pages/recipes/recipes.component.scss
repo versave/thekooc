@@ -1,0 +1,25 @@
+@use "../../theme/color-variables" as *;
+@use "../../theme/typography-variables" as *;
+@use "../../theme/layout-variables" as *;
+@use "../../theme/utils" as *;
+
+.container {
+    padding: 160px 0;
+}
+
+.grid {
+    display: flex;
+}
+
+.filters {
+    position: sticky;
+    top: $spacing-m;
+    left: 0;
+    width: clamp(150px, 22%, 288px);
+    margin-bottom: auto;
+    padding-right: $spacing-m;
+}
+
+.items {
+    flex: 1;
+}

@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { RecipeReducerState } from '../reducers';
+import { SingleRecipeReducerState } from '../reducers';
 
-export const selectRecipeState = createFeatureSelector<RecipeReducerState>('recipe');
+export const selectRecipeState = createFeatureSelector<SingleRecipeReducerState>('singleRecipe');
 
 export const selectGetRecipeState = createSelector(selectRecipeState, (state) => state?.getRecipe || null);
 export const selectGetRecipeData = createSelector(selectGetRecipeState, (state) => state?.data || null);

@@ -1,15 +1,15 @@
-<!--// todo: Add href to recipe-->
 <div *ngIf="cardData" class="card">
     <div class="image">
-        <tk-image
-            *ngIf="cardData?.image as imageSrc"
-            [imageProperties]="{ path: imageSrc, hasRetina: false }"
-            [alt]="cardData.title"
-            [fill]="true"
-        />
+        <ng-container *ngIf="cardData?.images?.length">
+            <tk-image
+                [imageProperties]="{ path: cardData.images[0], hasRetina: false }"
+                [alt]="cardData.title"
+                [fill]="true"
+            />
+        </ng-container>
 
         <tk-image
-            *ngIf="!cardData?.image"
+            *ngIf="!cardData?.images?.length"
             [imageProperties]="{ path: '/assets/icons/dish-placeholder.svg', hasRetina: false }"
             width="100"
             height="100"
@@ -18,10 +18,10 @@
     </div>
 
     <div class="prep-info">
-        <p class="prep-info-item">
+        <p *ngIf="transformCookingTime(cardData.cookingTime) as prepTime" class="prep-info-item">
             <img ngSrc="/assets/icons/prep-time.svg" width="20" height="20" alt="clock icon">
 
-            {{cardData.cookingTime}}
+            {{prepTime.hours}}:{{prepTime.minutes}}
         </p>
 
         <p class="prep-info-item">
@@ -41,7 +41,7 @@
         </p>
 
         <p *ngIf="cardData?.tags?.length" class="tags">
-            <em>{{cardData.tags.join(', ')}}</em>
+            <em>{{transformTags(cardData.tags).join(', ')}}</em>
         </p>
 
         <a class="author" [routerLink]="'account/' + cardData.author.uid">
@@ -60,5 +60,5 @@
         </a>
     </div>
 
-    <a [routerLink]="cardData.url" class="card-link"></a>
+    <a [routerLink]="'/recipes/' + cardData.id" class="card-link"></a>
 </div>

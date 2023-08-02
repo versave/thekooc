@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { InputFieldComponent } from '../../../components/input-field/input-field.component';
 import { ButtonComponent } from '../../../components/button/button.component';
-import { categories, tags } from '../../../static-data/static-data';
+import { staticCategories, staticTags } from '../../../static-data/static-data';
 import { CheckboxComponent } from '../../../components/checkbox/checkbox.component';
 import { ImageUploadComponent } from '../../../components/image-upload/image-upload.component';
 import { CategoryTag, NewRecipeArgs, RecipeObject, UpdateRecipeArgs } from '../../../models/recipe.model';
@@ -19,7 +19,7 @@ import { filter, Observable, combineLatest } from 'rxjs';
 import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
+import { SingleRecipeFacade } from '../../../store/single-recipe/services/single-recipe.facade';
 import { ActivatedRoute } from '@angular/router';
 import { TransformService } from '../../../services/transform/transform.service';
 
@@ -65,8 +65,8 @@ export class RecipeEditorComponent implements OnInit {
             Validators.pattern(/^(0|[1-9][0-9]*)$/),
             Validators.maxLength(2),
         ]),
-        [FormControls.categories]: new FormArray(categories.map(() => new FormControl(false))),
-        [FormControls.tags]: new FormArray(tags.map(() => new FormControl(false))),
+        [FormControls.categories]: new FormArray(staticCategories.map(() => new FormControl(false))),
+        [FormControls.tags]: new FormArray(staticTags.map(() => new FormControl(false))),
         [FormControls.minutes]: new FormControl(null, [
             Validators.required,
             Validators.pattern(/^(0|[1-9][0-9]*)$/),
@@ -89,8 +89,8 @@ export class RecipeEditorComponent implements OnInit {
         [FormControls.private]: new FormControl(false, []),
     });
     public formControls = FormControls;
-    public categories = categories;
-    public tags = tags;
+    public categories = staticCategories;
+    public tags = staticTags;
     public isEditMode = false;
     public formLoading = false;
     public categoriesValid = true;
@@ -102,7 +102,7 @@ export class RecipeEditorComponent implements OnInit {
 
     constructor(
         private authFacade: AuthFacade,
-        private recipeFacade: RecipeFacade,
+        private recipeFacade: SingleRecipeFacade,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
         private transformService: TransformService

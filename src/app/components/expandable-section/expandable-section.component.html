@@ -1,0 +1,9 @@
+<div class="section">
+    <p class="title font-heading-5" (click)="expanded = !expanded">
+        <strong>{{title}}</strong>
+    </p>
+
+    <div *ngIf="expanded" class="content">
+        <ng-content></ng-content>
+    </div>
+</div>

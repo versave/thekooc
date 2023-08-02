@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RecipeCard } from '../../models/recipe.model';
+import { RecipeObject } from '../../models/recipe.model';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 
 @Component({
@@ -12,9 +12,9 @@ import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardGridComponent {
-    @Input() public cards: RecipeCard[] = [];
+    @Input() public cards: RecipeObject[] = [];
 
-    public trackByFn(index: number, item: RecipeCard): string {
+    public trackByFn(index: number, item: RecipeObject): string {
         return item.id;
     }
 }

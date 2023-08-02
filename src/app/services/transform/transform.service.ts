@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HoursAndMinutes } from '../../models/utils.model';
+import { CategoryTag } from '../../models/recipe.model';
 
 @Injectable({
     providedIn: 'root',
@@ -14,5 +15,9 @@ export class TransformService {
         const minutes = Math.floor((milliseconds / 1000 / 60 / 60 - hours) * 60);
 
         return { hours, minutes };
+    }
+
+    public getMatchingCategoryTags(categoryTags: string[], providedCategoryTags: CategoryTag[]): CategoryTag[] {
+        return providedCategoryTags.filter((categoryTag) => categoryTags.includes(categoryTag.key));
     }
 }

@@ -15,7 +15,7 @@ import {
 @Injectable({
     providedIn: 'root',
 })
-export class RecipeFacade {
+export class SingleRecipeFacade {
     public getRecipeData$: Observable<RecipeObject | null> = this.store.select(selectGetRecipeData);
     public getRecipeLoading$: Observable<boolean> = this.store.select(selectGetRecipeLoading);
     public addRecipeLoading$: Observable<boolean> = this.store.select(selectAddRecipeLoading);

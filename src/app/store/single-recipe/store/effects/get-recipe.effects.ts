@@ -3,7 +3,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as recipeActions from '../actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { RecipeBackendService } from '../../services/recipe.backend.service';
+import { SingleRecipeBackendService } from '../../services/single-recipe.backend.service';
 import { selectSignInUser } from '../../../auth/store/selectors';
 import { Router } from '@angular/router';
 
@@ -47,7 +47,7 @@ export class GetRecipeEffects {
     constructor(
         private actions$: Actions,
         private store: Store,
-        private recipeBackendService: RecipeBackendService,
+        private recipeBackendService: SingleRecipeBackendService,
         private router: Router
     ) {}
 }

@@ -6,7 +6,7 @@ import { GalleryComponent } from '../../../components/gallery/gallery.component'
 import { PillComponent } from '../../../components/pill/pill.component';
 import { ImageComponent } from '../../../components/image/image.component';
 import { UserImageComponent } from '../../../components/user-image/user-image.component';
-import { RecipeFacade } from '../../../store/recipe/services/recipe.facade';
+import { SingleRecipeFacade } from '../../../store/single-recipe/services/single-recipe.facade';
 import { TransformService } from '../../../services/transform/transform.service';
 import { HoursAndMinutes } from '../../../models/utils.model';
 import { ImageProperties } from '../../../models/image.model';
@@ -41,7 +41,7 @@ export class RecipeComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private recipeFacade: RecipeFacade,
+        private recipeFacade: SingleRecipeFacade,
         private transformService: TransformService,
         private authFacade: AuthFacade
     ) {}

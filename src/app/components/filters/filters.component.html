@@ -1,0 +1,21 @@
+<div class="filters">
+    <tk-expandable-section title="Categories">
+        <div class="checkboxes">
+            <tk-checkbox
+                *ngFor="let categoryControl of getFormArray(formControls.categories); let idx = index"
+                [customControl]="categoryControl" [label]="categories[idx].name"
+                (checkboxChange)="onCategoryTagChange($event, filterType.category, categories[idx].key)"
+            />
+        </div>
+    </tk-expandable-section>
+
+    <tk-expandable-section title="Tags">
+        <div class="checkboxes">
+            <tk-checkbox
+                *ngFor="let tagControl of getFormArray(formControls.tags); let idx = index"
+                [customControl]="tagControl" [label]="tags[idx].name"
+                (checkboxChange)="onCategoryTagChange($event, filterType.tag, tags[idx].key)"
+            />
+        </div>
+    </tk-expandable-section>
+</div>

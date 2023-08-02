@@ -1,7 +1,23 @@
+@use "../../theme/layout" as *;
 @use "../../theme/layout-variables" as *;
 
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: $spacing-xs + $spacing-xxxs;
+
+    @include media("<=desktop") {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+tk-recipe-card {
+    display: block;
+    height: 100%;
+
+    ::ng-deep {
+        .card {
+            height: 100%;
+        }
+    }
 }

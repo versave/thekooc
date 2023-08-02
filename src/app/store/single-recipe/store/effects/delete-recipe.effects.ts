@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import * as recipeActions from '../actions';
 import { catchError, map, of, switchMap } from 'rxjs';
-import { RecipeBackendService } from '../../services/recipe.backend.service';
+import { SingleRecipeBackendService } from '../../services/single-recipe.backend.service';
 import { Router } from '@angular/router';
 
 @Injectable()
@@ -33,7 +33,7 @@ export class DeleteRecipeEffects {
     constructor(
         private actions$: Actions,
         private store: Store,
-        private recipeBackendService: RecipeBackendService,
+        private recipeBackendService: SingleRecipeBackendService,
         private router: Router
     ) {}
 }

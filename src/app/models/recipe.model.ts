@@ -1,18 +1,6 @@
 import { UserModel } from './user.model';
 import { ImageControl, ImageProperties } from './image.model';
 
-export interface RecipeCard {
-    id: string;
-    image?: string;
-    title: string;
-    description: string;
-    url: string;
-    tags: string[];
-    cookingTime: string;
-    serves: number;
-    author: UserModel;
-}
-
 export interface FullRecipe {
     id: string;
     images?: ImageProperties[];
