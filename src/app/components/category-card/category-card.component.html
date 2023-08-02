@@ -1,4 +1,4 @@
-<a *ngIf="categoryData" [routerLink]="categoryData.url" class="card">
+<a *ngIf="categoryData" routerLink="/recipes" [queryParams]="{ category: categoryData.key }" class="card">
     <div class="image">
         <tk-image
             [imageProperties]="{ path: categoryData.imageUrl, hasRetina: false }"

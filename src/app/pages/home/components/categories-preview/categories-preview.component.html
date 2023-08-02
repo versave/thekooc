@@ -4,7 +4,7 @@
 
         <div class="categories-grid">
             <div
-                    *ngFor="let category of categoryMocks; trackBy: trackCategoryByFn"
+                    *ngFor="let category of getCategories(); trackBy: trackCategoryByFn"
                     class="category-item"
             >
                 <tk-category-card [categoryData]="category" />

@@ -33,3 +33,15 @@
 .items {
     flex: 1;
 }
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: $spacing-xl;
+
+    img {
+        margin-bottom: $spacing-m;
+    }
+}
