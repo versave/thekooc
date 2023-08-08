@@ -11,12 +11,13 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserModel } from '../../models/user.model';
 import { AuthFacade } from '../../store/auth/services/auth.facade';
 import { ButtonComponent } from '../../components/button/button.component';
+import { SearchFieldComponent } from '../../components/search-field/search-field.component';
 
 @UntilDestroy()
 @Component({
     selector: 'tk-recipes',
     standalone: true,
-    imports: [CommonModule, RouterLink, CardGridComponent, FiltersComponent, ButtonComponent],
+    imports: [CommonModule, RouterLink, CardGridComponent, FiltersComponent, ButtonComponent, SearchFieldComponent],
     templateUrl: './recipes.component.html',
     styleUrls: ['./recipes.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -23,7 +23,7 @@
                 <p *ngIf="recipeData.categories.length">
                     <strong class="font-heading-6">Categories:</strong>
 
-                    <a *ngFor="let category of recipeData.categories" routerLink="/recipes">
+                    <a *ngFor="let category of recipeData.categories" routerLink="/recipes" [queryParams]="{ category: category.key }">
                         <tk-pill>
                             <strong>{{category.name}}</strong>
                         </tk-pill>

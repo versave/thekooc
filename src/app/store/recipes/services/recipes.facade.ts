@@ -1,7 +1,7 @@
 import { PlatformService } from '../../../services/platform/platform.service';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { getRecipes } from '../store/actions';
+import { getRecipes, getUserRecipes } from '../store/actions';
 import { Observable } from 'rxjs';
 import { RecipeObject } from '../../../models/recipe.model';
 import { selectGetRecipesData, selectGetRecipesLoading } from '../store/selectors';
@@ -31,6 +31,25 @@ export class RecipesFacade {
 
         if (this.platformService.isBrowser()) {
             this.store.dispatch(getRecipes({ payload: { conditions: whereConditions, isOrQuery: !!isOrQuery } }));
+        }
+    }
+
+    public getUserRecipes(userUid: string | null, selectedFilters?: FilterValues, isOrQuery?: boolean): void {
+        let whereConditions: WhereCondition[] = [];
+
+        if (selectedFilters) {
+            whereConditions = this.makeWhereConditions(selectedFilters);
+        }
+
+        if (this.platformService.isBrowser()) {
+            this.store.dispatch(
+                getUserRecipes({
+                    payload: {
+                        userUid,
+                        filters: { conditions: whereConditions, isOrQuery: !!isOrQuery },
+                    },
+                })
+            );
         }
     }
 

@@ -1,0 +1,14 @@
+@use "../../theme/layout-variables" as *;
+@use "../../theme/color-variables" as *;
+
+.search {
+    input {
+        width: 100%;
+        height: $spacing-l;
+        border: 2px solid $color-orange;
+        border-radius: 5px;
+        margin-bottom: $spacing-s;
+        padding: 0 $spacing-xs;
+        color: $color-black;
+    }
+}

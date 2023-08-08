@@ -12,4 +12,8 @@ export class RecipesBackendService {
     public getRecipes<T>(filterRequest?: FilterRequest) {
         return this.firestoreActions.queryCollectionDocs<T>(Collections.recipes, filterRequest);
     }
+
+    public getUserRecipes<T>(userWhereCondition: WhereCondition, filterRequest?: FilterRequest) {
+        return this.firestoreActions.queryUserCollectionDocs<T>(Collections.recipes, userWhereCondition, filterRequest);
+    }
 }

@@ -44,7 +44,7 @@
             <em>{{transformTags(cardData.tags).join(', ')}}</em>
         </p>
 
-        <a class="author" [routerLink]="'account/' + cardData.author.uid">
+        <a class="author" [routerLink]="'/user/' + cardData.author.uid">
             <div class="author-image">
                 <tk-image
                         *ngIf="cardData?.author?.image as imageSrc"

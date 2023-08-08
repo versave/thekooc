@@ -27,3 +27,42 @@ $user-image-size: 180px;
         margin: -$user-image-size / 2 auto $spacing-s;
     }
 }
+
+.grid {
+    display: flex;
+}
+
+.filters {
+    position: sticky;
+    top: $spacing-m;
+    left: 0;
+    width: clamp(150px, 22%, 288px);
+    margin-bottom: auto;
+    padding-right: $spacing-m;
+
+    > tk-button ::ng-deep {
+        margin-bottom: $spacing-s;
+
+        a {
+            padding-left: $spacing-xs;
+            padding-right: $spacing-xs;
+            font-size: $font-xs;
+        }
+    }
+}
+
+.items {
+    flex: 1;
+}
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: $spacing-xl;
+
+    img {
+        margin-bottom: $spacing-m;
+    }
+}

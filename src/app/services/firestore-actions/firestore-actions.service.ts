@@ -11,12 +11,13 @@ import {
     query,
     where,
     or,
+    and,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Collections } from '../../models/collections.enum';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
 import { DocumentReference, QuerySnapshot, DocumentSnapshot, CollectionReference } from '@firebase/firestore';
-import { FilterRequest } from '../../models/filter.model';
+import { FilterRequest, WhereCondition } from '../../models/filter.model';
 
 @Injectable({
     providedIn: 'root',
@@ -45,9 +46,39 @@ export class FirestoreActionsService {
             const mappedWhereConditions = filterRequest.conditions.map(({ fieldPath, opStr, value }) =>
                 where(fieldPath, opStr, value)
             );
+
             const queryRef = filterRequest?.isOrQuery
                 ? query(collectionRef, or(...mappedWhereConditions))
                 : query(collectionRef, ...mappedWhereConditions);
+
+            return fromPromise(getDocs<T>(queryRef));
+        }
+    }
+
+    public queryUserCollectionDocs<T>(
+        collectionName: Collections,
+        userWhereCondition: WhereCondition,
+        filterRequest?: FilterRequest
+    ): Observable<QuerySnapshot<T>> {
+        const collectionRef = this.getCollectionInstance<T>(collectionName);
+        const userCondition = where(userWhereCondition.fieldPath, userWhereCondition.opStr, userWhereCondition.value);
+
+        if (!filterRequest?.conditions?.length) {
+            const queryRef = query(collectionRef, userCondition);
+            return fromPromise(getDocs<T>(queryRef));
+        } else {
+            const mappedWhereConditions = filterRequest.conditions.map(({ fieldPath, opStr, value }) =>
+                where(fieldPath, opStr, value)
+            );
+            const userCondition = where(
+                userWhereCondition.fieldPath,
+                userWhereCondition.opStr,
+                userWhereCondition.value
+            );
+
+            const queryRef = filterRequest?.isOrQuery
+                ? query(collectionRef, and(userCondition, or(...mappedWhereConditions)))
+                : query(collectionRef, ...mappedWhereConditions, userCondition);
 
             return fromPromise(getDocs<T>(queryRef));
         }
