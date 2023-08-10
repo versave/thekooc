@@ -18,7 +18,8 @@ export class ImageBackendService {
     }
 
     private async uploadImage(file: File, folder: string): Promise<string> {
-        const storageRef = ref(this.storage, `${folder}/${file?.name}`);
+        const randomId = Math.random().toString(36).substring(2);
+        const storageRef = ref(this.storage, `${folder}/${randomId}-${file?.name}`);
         await uploadBytesResumable(storageRef, file as Blob);
 
         return await getDownloadURL(storageRef);

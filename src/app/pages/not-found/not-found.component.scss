@@ -1,0 +1,15 @@
+@use "../../theme/color-variables" as *;
+
+.container {
+    padding-top: 200px;
+    text-align: center;
+
+    h1 {
+        font-size: 120px;
+        color: $color-orange
+    }
+
+    p {
+
+    }
+}
