@@ -13,4 +13,8 @@ export const getUserRecipes = createAction(
 export const getRecipesSuccess = createAction('[Recipes] Get Recipes Success', props<{ payload: RecipeObject[] }>());
 export const getRecipesFail = createAction('[Recipes] Get Recipes Fail', props<{ payload: StoreError }>());
 
-export type GetRecipesActions = typeof getRecipes | typeof getRecipesSuccess | typeof getRecipesFail;
+export type GetRecipesActions =
+    | typeof getRecipes
+    | typeof getRecipesSuccess
+    | typeof getUserRecipes
+    | typeof getRecipesFail;

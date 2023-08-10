@@ -1,13 +1,24 @@
 <div class="callout">
-    <div class="app-container">
+    <div *ngIf="singInUserData$ | async" class="app-container">
+        <h2>Explore all recipes and add some of your own!</h2>
+
+        <tk-button
+                label="Explore"
+                elementType="link"
+                buttonStyle="secondary"
+                [fullWidth]="true"
+                href="/recipes"
+        />
+    </div>
+
+    <div *ngIf="(singInUserData$ | async) === null" class="app-container">
         <h2>Sign up now and start adding your own recipes!</h2>
 
         <tk-button
                 label="Sign up"
-                elementType="link"
                 buttonStyle="secondary"
-                href="register"
                 [fullWidth]="true"
+                (click)="signInUser()"
         />
     </div>
 </div>

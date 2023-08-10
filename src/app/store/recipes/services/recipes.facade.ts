@@ -8,6 +8,7 @@ import { selectGetRecipesData, selectGetRecipesLoading } from '../store/selector
 import { FilterValues, WhereCondition } from '../../../models/filter.model';
 import { staticCategories, staticTags } from '../../../static-data/static-data';
 import { TransformService } from '../../../services/transform/transform.service';
+import { limit } from '@angular/fire/firestore';
 
 @Injectable({
     providedIn: 'root',
@@ -48,6 +49,24 @@ export class RecipesFacade {
                         userUid,
                         filters: { conditions: whereConditions, isOrQuery: !!isOrQuery },
                     },
+                })
+            );
+        }
+    }
+
+    public getLatestRecipes(): void {
+        const whereConditions = [
+            {
+                fieldPath: 'private',
+                opStr: '==',
+                value: false,
+            },
+        ] as WhereCondition[];
+
+        if (this.platformService.isBrowser()) {
+            this.store.dispatch(
+                getRecipes({
+                    payload: { conditions: whereConditions, isOrQuery: false, additionalFilters: [limit(8)] },
                 })
             );
         }

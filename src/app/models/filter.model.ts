@@ -1,4 +1,4 @@
-import { FieldPath, WhereFilterOp } from '@firebase/firestore';
+import { FieldPath, QueryNonFilterConstraint, WhereFilterOp } from '@firebase/firestore';
 
 export interface WhereCondition {
     fieldPath: string | FieldPath;
@@ -14,6 +14,7 @@ export interface FilterValues {
 export interface FilterRequest {
     conditions: WhereCondition[];
     isOrQuery: boolean;
+    additionalFilters?: QueryNonFilterConstraint[];
 }
 
 export enum FilterType {

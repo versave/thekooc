@@ -1,7 +1,7 @@
 <section class="preview">
     <div class="app-container">
-        <h2>Sneak peak</h2>
+        <h2>Latest recipes</h2>
 
-<!--        <tk-card-grid [cards]="cardMocks" />-->
+        <tk-card-grid *ngIf="recipesData$ | async as recipes" [cards]="recipes" />
     </div>
 </section>

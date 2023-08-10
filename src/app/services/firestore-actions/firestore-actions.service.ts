@@ -16,7 +16,15 @@ import {
 import { Observable } from 'rxjs';
 import { Collections } from '../../models/collections.enum';
 import { fromPromise } from 'rxjs/internal/observable/innerFrom';
-import { DocumentReference, QuerySnapshot, DocumentSnapshot, CollectionReference } from '@firebase/firestore';
+import {
+    DocumentReference,
+    QuerySnapshot,
+    DocumentSnapshot,
+    CollectionReference,
+    Query,
+    QueryConstraint,
+    QueryNonFilterConstraint,
+} from '@firebase/firestore';
 import { FilterRequest, WhereCondition } from '../../models/filter.model';
 
 @Injectable({
@@ -46,10 +54,13 @@ export class FirestoreActionsService {
             const mappedWhereConditions = filterRequest.conditions.map(({ fieldPath, opStr, value }) =>
                 where(fieldPath, opStr, value)
             );
+            const additionalFiltersArr = filterRequest?.additionalFilters?.length
+                ? filterRequest?.additionalFilters
+                : [];
 
             const queryRef = filterRequest?.isOrQuery
-                ? query(collectionRef, or(...mappedWhereConditions))
-                : query(collectionRef, ...mappedWhereConditions);
+                ? query(collectionRef, or(...mappedWhereConditions), ...additionalFiltersArr)
+                : query(collectionRef, ...mappedWhereConditions, ...additionalFiltersArr);
 
             return fromPromise(getDocs<T>(queryRef));
         }

@@ -4,10 +4,25 @@
 
 $user-image-size: 180px;
 
+:host {
+    display: block;
+    padding-bottom: $spacing-xxxl;
+}
+
 .intro {
     position: relative;
     height: 350px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
     background: linear-gradient(180deg, rgba(233, 180, 76, 0.82) 0%, $color-orange 100%);
+}
+
+.sign-out-btn {
+    position: relative;
+    max-width: 300px;
+    width: 100%;
+    margin: 0 $spacing-s $spacing-s 0;
 }
 
 .background {
@@ -26,6 +41,10 @@ $user-image-size: 180px;
     tk-user-image {
         margin: -$user-image-size / 2 auto $spacing-s;
     }
+}
+
+.recipes {
+    margin-top: $spacing-xl;
 }
 
 .grid {

@@ -1,6 +1,15 @@
 <ng-container *ngIf="userData$ | async as user">
     <div class="intro">
         <figure class="background" style="background-image: url('assets/icons/intro-background.svg')"></figure>
+
+        <tk-button
+                *ngIf="isOwner"
+                [fullWidth]="true"
+                (click)="signOut()"
+                label="Sign out"
+                buttonStyle="secondary"
+                class="sign-out-btn"
+        />
     </div>
 
     <div class="user">
@@ -8,37 +17,39 @@
             <tk-user-image [imageUrl]="user.image" size="180" />
 
             <h2>{{user.displayName}}</h2>
-
-            <button *ngIf="isOwner" (click)="signOut()">Sign out</button>
         </div>
     </div>
 </ng-container>
 
-<div class="grid">
-    <div class="filters">
-        <tk-button
-                *ngIf="singInUserData$ | async"
-                [fullWidth]="true"
-                label="+ new recipe"
-                elementType="link"
-                href="/recipes/new"
-        />
+<div class="recipes">
+    <div class="app-container">
+        <div class="grid">
+            <div class="filters">
+                <tk-button
+                        *ngIf="singInUserData$ | async"
+                        [fullWidth]="true"
+                        label="+ new recipe"
+                        elementType="link"
+                        href="/recipes/new"
+                />
 
-        <!--                todo: Implement on a later stage-->
-        <!--                <tk-search-field />-->
+                <!--                todo: Implement on a later stage-->
+                <!--                <tk-search-field />-->
 
-        <tk-filters (activatedFiltersEvent)="handleActivatedFilters($event)" />
-    </div>
-
-    <div class="items" [class.loading]="recipesLoading$ | async">
-        <ng-container *ngIf="recipesData$ | async as recipesData">
-            <tk-card-grid *ngIf="recipesData?.length" [cards]="recipesData"/>
-
-            <div *ngIf="!recipesData?.length" class="no-results">
-                <img src="assets/icons/empty-search-icon.svg" width="200" height="200" alt="Empty search icon">
-
-                <h3>No results found...</h3>
+                <tk-filters (activatedFiltersEvent)="handleActivatedFilters($event)" />
             </div>
-        </ng-container>
+
+            <div class="items" [class.loading]="recipesLoading$ | async">
+                <ng-container *ngIf="recipesData$ | async as recipesData">
+                    <tk-card-grid *ngIf="recipesData?.length" [cards]="recipesData"/>
+
+                    <div *ngIf="!recipesData?.length" class="no-results">
+                        <img src="assets/icons/empty-search-icon.svg" width="200" height="200" alt="Empty search icon">
+
+                        <h3>No results found...</h3>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
     </div>
 </div>

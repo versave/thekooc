@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardGridComponent } from '../../../../components/card-grid/card-grid.component';
+import { RecipesFacade } from '../../../../store/recipes/services/recipes.facade';
+import { Observable } from 'rxjs';
+import { RecipeObject } from '../../../../models/recipe.model';
 
 @Component({
     selector: 'tk-recipes-preview',
@@ -10,7 +13,12 @@ import { CardGridComponent } from '../../../../components/card-grid/card-grid.co
     styleUrls: ['./recipes-preview.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipesPreviewComponent {
-    // todo: Remove mocks and use firestore data
-    // public cardMocks = getRecipeMocks();
+export class RecipesPreviewComponent implements OnInit {
+    public recipesData$: Observable<RecipeObject[] | null> = this.recipesFacade.getRecipesData$;
+
+    constructor(private recipesFacade: RecipesFacade) {}
+
+    public ngOnInit(): void {
+        this.recipesFacade.getLatestRecipes();
+    }
 }
