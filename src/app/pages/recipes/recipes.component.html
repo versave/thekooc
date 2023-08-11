@@ -1,9 +1,19 @@
 <div class="container">
     <div class="app-container">
-        <h1 class="font-heading-2">Search & Filter for recipes</h1>
+        <h1 class="font-heading-2 title">
+            Search & Filter for recipes
+
+            <tk-button
+                label="Filters"
+                buttonStyle="tertiary"
+                (click)="toggleMobileFilters = true"
+            />
+        </h1>
 
         <div class="grid">
-            <div class="filters">
+            <div class="filters" [class.mobile-visible]="toggleMobileFilters">
+                <button class="filters-close" (click)="toggleMobileFilters = false">X</button>
+
                 <tk-button
                         *ngIf="singInUserData$ | async"
                         [fullWidth]="true"

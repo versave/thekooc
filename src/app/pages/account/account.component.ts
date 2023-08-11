@@ -32,6 +32,7 @@ export class AccountComponent implements OnInit {
 
     public isOwner = false;
     public userUid: string | null = null;
+    public toggleMobileFilters = false;
 
     constructor(
         private authFacade: AuthFacade,

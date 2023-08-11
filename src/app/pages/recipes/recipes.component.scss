@@ -1,47 +1,36 @@
 @use "../../theme/color-variables" as *;
 @use "../../theme/typography-variables" as *;
+@use "../../theme/layout" as *;
 @use "../../theme/layout-variables" as *;
 @use "../../theme/utils" as *;
+@use "../../theme/filters-grid" as *;
 
 .container {
     padding: 160px 0;
-}
 
-.grid {
-    display: flex;
-}
-
-.filters {
-    position: sticky;
-    top: $spacing-m;
-    left: 0;
-    width: clamp(150px, 22%, 288px);
-    margin-bottom: auto;
-    padding-right: $spacing-m;
-
-    > tk-button ::ng-deep {
-        margin-bottom: $spacing-s;
-
-        a {
-            padding-left: $spacing-xs;
-            padding-right: $spacing-xs;
-            font-size: $font-xs;
-        }
+    @include media("<=phone") {
+        padding: 130px 0 $spacing-xxxl;
     }
 }
 
-.items {
-    flex: 1;
-}
+.title {
+    @include media("<=tablet") {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-.no-results {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-top: $spacing-xl;
+    tk-button ::ng-deep {
+        display: none;
+        margin-left: $spacing-xxs;
 
-    img {
-        margin-bottom: $spacing-m;
+        @include media("<=tablet") {
+            display: inline-block;
+        }
+
+        .button {
+            padding-top: $spacing-xxs;
+            padding-bottom: $spacing-xxs;
+        }
     }
 }

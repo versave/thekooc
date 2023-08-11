@@ -1,11 +1,20 @@
 @use "../../../../theme/color-variables" as *;
 @use "../../../../theme/typography-variables" as *;
+@use "../../../../theme/layout" as *;
 @use "../../../../theme/layout-variables" as *;
 
 .intro {
     position: relative;
     padding: 160px 0 80px;
     background: linear-gradient(180deg, rgba(233, 180, 76, 0.82) 0%, $color-orange 100%);
+
+    @include media("<=phone") {
+        padding: 116px 0 50px;
+    }
+
+    @include media("<=phone-xs") {
+        padding: 108px 0 34px;
+    }
 
     .background {
         position: absolute;
@@ -29,17 +38,41 @@
             text-transform: uppercase;
             text-align: left;
 
+            @include media("<=phone") {
+                font-size: 80px;
+            }
+
+            @include media("<=phone-xs") {
+                font-size: 56px;
+            }
+
             span {
                 display: block;
 
                 + span {
                     margin-left: 89px;
+
+                    @include media("<=phone") {
+                        margin-left: 46px;
+                    }
+
+                    @include media("<=phone-xs") {
+                        margin-left: 33px;
+                    }
                 }
             }
         }
 
         p {
             font-size: $font-xxl + 4;
+
+            @include media("<=phone") {
+                font-size: 28px;
+            }
+
+            @include media("<=phone-xs") {
+                font-size: 22px;
+            }
         }
     }
 }

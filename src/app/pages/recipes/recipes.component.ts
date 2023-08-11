@@ -27,6 +27,8 @@ export class RecipesComponent implements OnInit {
     public recipesLoading$: Observable<boolean> = this.recipesFacade.getRecipesLoading$;
     public singInUserData$: Observable<UserModel | null> = this.authFacade.userData$;
 
+    public toggleMobileFilters = false;
+
     constructor(
         private recipesFacade: RecipesFacade,
         private router: Router,

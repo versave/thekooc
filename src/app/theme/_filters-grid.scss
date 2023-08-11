@@ -1,0 +1,99 @@
+@use "src/app/theme/layout" as *;
+@use "src/app/theme/layout-variables" as *;
+@use "src/app/theme/typography-variables" as *;
+@use "src/app/theme/color-variables" as *;
+
+.grid {
+    display: flex;
+
+    @include media("<=tablet") {
+        display: block;
+    }
+}
+
+.filters {
+    position: sticky;
+    top: $spacing-m;
+    left: 0;
+    flex: 0 0 288px;
+    margin-bottom: auto;
+    padding-right: $spacing-m;
+
+    @include media("<=tablet-landscape") {
+        flex: 0 0 260px;
+    }
+
+    @include media("<=tablet") {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 5;
+        display: none;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        padding: $spacing-xxxl $spacing-xxl $spacing-xxl;
+        background: $color-white;
+
+        &.mobile-visible {
+            display: block;
+        }
+    }
+
+    @include media("<=phone") {
+        padding: $spacing-xxxl $spacing-s $spacing-xxl;
+    }
+
+    > tk-button ::ng-deep {
+        margin-bottom: $spacing-s;
+
+        a {
+            padding-left: $spacing-xs;
+            padding-right: $spacing-xs;
+            font-size: $font-xs;
+        }
+    }
+}
+
+.filters-close {
+    position: absolute;
+    top: $spacing-s;
+    right: $spacing-s;
+    border: 2px solid $color-orange;
+    border-radius: 5px;
+    padding: $spacing-xxs $spacing-xs;
+    background: none;
+    font-size: $font-s;
+    font-weight: 800;
+    color: $color-orange;
+
+    @include media(">tablet") {
+        display: none;
+    }
+}
+
+.items {
+    flex: 1;
+
+    tk-card-grid ::ng-deep .grid {
+        @include media("<=tablet-landscape") {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media("<=phone") {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+
+.no-results {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: $spacing-xl;
+
+    img {
+        margin-bottom: $spacing-m;
+    }
+}

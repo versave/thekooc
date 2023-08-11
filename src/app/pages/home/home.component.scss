@@ -1,5 +1,6 @@
 @use "../../theme/color-variables" as *;
 @use "../../theme/typography-variables" as *;
+@use "../../theme/layout" as *;
 @use "../../theme/layout-variables" as *;
 
 .components {
@@ -13,9 +14,17 @@
 
     tk-callout {
         margin-top: $spacing-xxxl;
+
+        @include media("<=phone") {
+            margin-top: $spacing-xxl;
+        }
     }
 }
 
 .preview + .preview {
     margin-top: $spacing-xxl;
+
+    @include media("<=phone") {
+        margin-top: $spacing-l;
+    }
 }

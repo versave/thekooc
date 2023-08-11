@@ -23,8 +23,18 @@
 
 <div class="recipes">
     <div class="app-container">
+        <div class="actions">
+            <tk-button
+                    label="Filters"
+                    buttonStyle="tertiary"
+                    (click)="toggleMobileFilters = true"
+            />
+        </div>
+
         <div class="grid">
-            <div class="filters">
+            <div class="filters" [class.mobile-visible]="toggleMobileFilters">
+                <button class="filters-close" (click)="toggleMobileFilters = false">X</button>
+
                 <tk-button
                         *ngIf="singInUserData$ | async"
                         [fullWidth]="true"

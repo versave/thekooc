@@ -1,3 +1,4 @@
+@use "../../../../theme/layout" as *;
 @use "../../../../theme/layout-variables" as *;
 @use "../../../../theme/color-variables" as *;
 @use "../../../../theme/typography-variables" as *;
@@ -8,9 +9,17 @@
     color: $color-white;
     text-align: center;
 
+    @include media("<=phone") {
+        padding: $spacing-l 0;
+    }
+
     h2 {
         margin-bottom: $spacing-l;
         font-family: $font-primary;
+
+        @include media("<=phone") {
+            margin-bottom: $spacing-m;
+        }
     }
 
     tk-button {

@@ -1,5 +1,6 @@
 @use "../../theme/color-variables" as *;
 @use "../../theme/typography-variables" as *;
+@use "../../theme/layout" as *;
 @use "../../theme/layout-variables" as *;
 
 .header {
@@ -9,6 +10,13 @@
   z-index: 5;
   padding: $spacing-xs 0;
   background: rgba($color-black, .8);
+}
+
+.logo img {
+  @include media("<=phone") {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .container {
@@ -21,6 +29,10 @@
   align-items: center;
   gap: 0 $spacing-m;
 
+  @include media("<=phone") {
+    gap: 0 20px;
+  }
+
   a, button {
     display: inline-flex;
     align-items: center;
@@ -30,6 +42,24 @@
     font-size: $font-xs;
     color: $color-white;
     text-decoration: none;
+
+    @include media("<=phone") {
+      font-size: $font-xxs;
+
+      img {
+        width: 34px;
+        height: 34px;
+      }
+    }
+
+    @include media("<=phone-xs") {
+      font-size: $font-xxxs;
+
+      img {
+        width: 28px;
+        height: 28px;
+      }
+    }
 
     span {
       margin-left: $spacing-xs;
