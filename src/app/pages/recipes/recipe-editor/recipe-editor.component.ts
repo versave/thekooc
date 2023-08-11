@@ -20,12 +20,13 @@ import { UserModel } from '../../../models/user.model';
 import { AuthFacade } from '../../../store/auth/services/auth.facade';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SingleRecipeFacade } from '../../../store/single-recipe/services/single-recipe.facade';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TransformService } from '../../../services/transform/transform.service';
+import { concatLatestFrom } from '@ngrx/effects';
 
 @UntilDestroy()
 @Component({
-    selector: 'tk-new-recipe',
+    selector: 'tk-recipe-editor',
     standalone: true,
     imports: [
         CommonModule,
@@ -105,7 +106,8 @@ export class RecipeEditorComponent implements OnInit {
         private recipeFacade: SingleRecipeFacade,
         private cdr: ChangeDetectorRef,
         private route: ActivatedRoute,
-        private transformService: TransformService
+        private transformService: TransformService,
+        private router: Router
     ) {}
 
     public ngOnInit(): void {
@@ -217,10 +219,19 @@ export class RecipeEditorComponent implements OnInit {
         this.getRecipeData$
             .pipe(
                 filter(Boolean),
-                filter(() => this.isEditMode),
+                concatLatestFrom(() => this.singInUserData$),
+                filter(([recipe, user]) => {
+                    const userOwnedRecipe = recipe.author.uid === user?.uid;
+
+                    if (!userOwnedRecipe) {
+                        void this.router.navigate(['/404']);
+                    }
+
+                    return this.isEditMode && userOwnedRecipe;
+                }),
                 untilDestroyed(this)
             )
-            .subscribe((recipe) => this.populateEditForm(recipe));
+            .subscribe(([recipe]) => this.populateEditForm(recipe));
 
         this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => {
             if (id) {
