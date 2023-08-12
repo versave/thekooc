@@ -1,5 +1,6 @@
 @use "../../../theme/color-variables" as *;
 @use "../../../theme/typography-variables" as *;
+@use "../../../theme/layout" as *;
 @use "../../../theme/layout-variables" as *;
 @use "../../../theme/utils" as *;
 
@@ -8,6 +9,10 @@
     padding: 160px 0 80px;
     background: $color-black;
     color: $color-orange;
+
+    @include media("<=tablet") {
+        padding: 114px 0 70px;
+    }
 
     h1 {
         text-align: center;
@@ -26,8 +31,18 @@
         align-items: center;
         margin-bottom: 0;
 
+        @include media("<=tablet") {
+            font-size: $font-s;
+        }
+
         img {
             margin-right: $spacing-xs + $spacing-xxxs;
+
+            @include media("<=tablet") {
+                width: 30px;
+                height: 30px;
+                margin-right: $spacing-xxxs;
+            }
         }
     }
 }
@@ -46,6 +61,10 @@
 
     .cols {
         display: flex;
+
+        @include media("<=tablet") {
+            display: block;
+        }
     }
 
     .ingredients {
@@ -56,8 +75,6 @@
 
             li {
                 position: relative;
-                column-count: 2;
-                column-gap: $spacing-xxs;
                 padding-left: $spacing-xs;
 
                 &:before {
@@ -81,6 +98,11 @@
     .steps {
         flex: 1 1 60%;
         padding-left: $spacing-s;
+
+        @include media("<=tablet") {
+            padding-left: 0;
+            margin-top: $spacing-m;
+        }
     }
 
     .step {
@@ -100,13 +122,29 @@
     justify-content: space-between;
     margin-bottom: $spacing-m;
 
+    @include media("<=tablet") {
+        display: block;
+    }
+
     p {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         margin-bottom: 0;
+        gap: $spacing-xxs 0;
+
+        @include media("<=tablet") {
+            + p {
+                margin-top: $spacing-s;
+            }
+        }
 
         &:first-child {
             margin-right: $spacing-xs;
+
+            @include media("<=tablet") {
+                margin-right: 0;
+            }
         }
 
         > strong {
@@ -146,5 +184,23 @@
         display: flex;
         justify-content: flex-end;
         gap: $spacing-xs;
+
+        @include media("<=tablet") {
+            display: block;
+
+            tk-button {
+                width: 100%;
+
+                + tk-button {
+                    margin-top: $spacing-xs;
+                }
+
+                ::ng-deep {
+                    .button {
+                        width: 100%;
+                    }
+                }
+            }
+        }
     }
 }

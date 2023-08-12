@@ -1,3 +1,4 @@
+@use "../../../theme/layout" as *;
 @use "../../../theme/layout-variables" as *;
 @use "../../../theme/typography-variables" as *;
 @use "../../../theme/color-variables" as *;
@@ -5,6 +6,10 @@
 
 .container {
     padding: ($spacing-xxxl + $spacing-xl) 0;
+
+    @include media("<=phone") {
+        padding: 130px 0 100px;
+    }
 }
 
 form {
@@ -13,6 +18,10 @@ form {
 
     h1 {
         margin-bottom: $spacing-l;
+
+        @include media("<=phone") {
+            margin-bottom: $spacing-m;
+        }
     }
 }
 
@@ -37,6 +46,10 @@ form {
 
     + .row {
         margin-top: $spacing-l;
+
+        @include media("<=phone") {
+            margin-top: $spacing-m;
+        }
     }
 }
 
@@ -45,6 +58,16 @@ form {
         display: grid;
         grid-template-columns: 3fr 1fr 1fr;
         grid-gap: $spacing-s;
+
+        @include media("<=tablet") {
+            display: block;
+        }
+    }
+
+    .col + .col {
+        @include media("<=tablet") {
+            margin-top: $spacing-xs;
+        }
     }
 }
 
@@ -63,8 +86,21 @@ form {
         grid-gap: $spacing-s;
         margin-bottom: $spacing-s;
 
+        @include media("<=tablet") {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        @include media("<=phone") {
+            grid-template-columns: 1fr;
+            grid-gap: $spacing-xs;
+        }
+
         &.steps {
             grid-template-columns: 1fr 1fr;
+
+            @include media("<=phone") {
+                grid-template-columns: 1fr;
+            }
         }
     }
 }
@@ -74,6 +110,14 @@ form {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-gap: $spacing-s;
+
+        @include media("<=tablet") {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media("<=phone") {
+            grid-template-columns: repeat(1, 1fr);
+        }
     }
 }
 
@@ -82,6 +126,10 @@ form {
     align-items: center;
 
     tk-input-field {
+        @include media("<=tablet") {
+            flex: 1 1 50%;
+        }
+
         ::ng-deep input {
             text-align: center;
         }
