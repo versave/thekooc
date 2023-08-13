@@ -14,7 +14,10 @@ export class TransformService {
         const hours = Math.floor(milliseconds / 1000 / 60 / 60);
         const minutes = Math.floor((milliseconds / 1000 / 60 / 60 - hours) * 60);
 
-        return { hours, minutes };
+        return {
+            hours: hours < 10 ? `0${hours}` : `${hours}`,
+            minutes: minutes < 10 ? `0${minutes}` : `${minutes}`,
+        };
     }
 
     public getMatchingCategoryTags(categoryTags: string[], providedCategoryTags: CategoryTag[]): CategoryTag[] {

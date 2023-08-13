@@ -2,8 +2,12 @@
   "hosting": [
     {
       "target": "thekooc",
-      "source": ".",
-      "frameworksBackend": {}
+      "public": "dist/thekooc/browser/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
     }
   ]
 }

@@ -63,16 +63,16 @@ export class RecipeEditorComponent implements OnInit {
         [FormControls.serves]: new FormControl(null, [Validators.required, Validators.pattern(/^(0|[1-9][0-9]*)$/)]),
         [FormControls.hours]: new FormControl(null, [
             Validators.required,
-            Validators.pattern(/^(0|[1-9][0-9]*)$/),
+            Validators.pattern(/^(0|[0-9]+)$/),
+            Validators.maxLength(2),
+        ]),
+        [FormControls.minutes]: new FormControl(null, [
+            Validators.required,
+            Validators.pattern(/^(0|[0-9]+)$/),
             Validators.maxLength(2),
         ]),
         [FormControls.categories]: new FormArray(staticCategories.map(() => new FormControl(false))),
         [FormControls.tags]: new FormArray(staticTags.map(() => new FormControl(false))),
-        [FormControls.minutes]: new FormControl(null, [
-            Validators.required,
-            Validators.pattern(/^(0|[1-9][0-9]*)$/),
-            Validators.maxLength(2),
-        ]),
         [FormControls.ingredients]: new FormArray([
             new FormControl(null, [Validators.required]),
             new FormControl(null, []),
