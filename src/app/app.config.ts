@@ -10,6 +10,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { storeEffects, storeReducers } from './store';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -27,5 +28,13 @@ export const appConfig: ApplicationConfig = {
         importProvidersFrom(provideFirestore(() => getFirestore())),
         importProvidersFrom(provideAuth(() => getAuth())),
         importProvidersFrom(provideStorage(() => getStorage())),
+        importProvidersFrom(
+            ServiceWorkerModule.register('ngsw-worker.js', {
+                enabled: !isDevMode(),
+                // Register the ServiceWorker as soon as the application is stable
+                // or after 30 seconds (whichever comes first).
+                registrationStrategy: 'registerWhenStable:30000',
+            })
+        ),
     ],
 };
