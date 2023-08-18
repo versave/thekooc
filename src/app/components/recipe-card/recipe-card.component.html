@@ -37,7 +37,7 @@
         </p>
 
         <p class="description">
-            Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem ipsum sit dolor amet Lorem amet...
+            <ng-container *ngFor="let ingredient of cardData.ingredients">• {{ingredient}} </ng-container>
         </p>
 
         <p *ngIf="cardData?.tags?.length" class="tags">

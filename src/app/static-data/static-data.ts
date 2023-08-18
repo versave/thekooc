@@ -10,7 +10,16 @@ export const staticCategories: CategoryTag[] = [
 ];
 
 export const staticTags: CategoryTag[] = [
-    { key: 'pastry', name: 'Pastry' },
     { key: 'heavy', name: 'Heavy' },
     { key: 'spicy', name: 'Spicy' },
+    { key: 'light', name: 'Light' },
+    { key: 'sweet', name: 'Sweet' },
+    { key: 'sour', name: 'Sour' },
+    { key: 'salty', name: 'Salty' },
+    { key: 'bitter', name: 'Bitter' },
+    { key: 'cold', name: 'Cold' },
+    { key: 'fried', name: 'Fried' },
+    { key: 'boiled', name: 'Boiled' },
+    { key: 'grilled', name: 'Grilled' },
+    { key: 'roasted', name: 'Roasted' },
 ];

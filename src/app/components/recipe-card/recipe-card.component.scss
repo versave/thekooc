@@ -55,6 +55,14 @@
 
 .description {
     margin-bottom: $spacing-xs + 4;
+    font-style: italic;
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    white-space: normal;
 }
 
 .tags {
