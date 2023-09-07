@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -32,7 +32,7 @@ import { UserModel } from '../../../models/user.model';
     styleUrls: ['./recipe.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RecipeComponent implements OnInit {
+export class RecipeComponent implements OnInit, OnDestroy {
     public recipeData$ = this.recipeFacade.getRecipeData$;
     public deleteRecipeLoading$ = this.recipeFacade.deleteRecipeLoading$;
     public userData$ = this.authFacade.userData$;
@@ -49,6 +49,10 @@ export class RecipeComponent implements OnInit {
     public ngOnInit(): void {
         this.route.params.pipe(untilDestroyed(this)).subscribe(({ id }) => this.recipeFacade.getRecipe(id));
         this.getUser();
+    }
+
+    public ngOnDestroy(): void {
+        this.recipeFacade.resetRecipe();
     }
 
     public trackIngredients(index: number, item: string): string {

@@ -1,7 +1,7 @@
 import { PlatformService } from '../../../services/platform/platform.service';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { addRecipe, getRecipe, updateRecipe, deleteRecipe } from '../store/actions';
+import { addRecipe, getRecipe, updateRecipe, deleteRecipe, resetRecipe } from '../store/actions';
 import { NewRecipeArgs, RecipeObject, UpdateRecipeArgs } from '../../../models/recipe.model';
 import { Observable } from 'rxjs';
 import {
@@ -49,6 +49,12 @@ export class SingleRecipeFacade {
     public deleteRecipe(recipeId: string): void {
         if (this.platformService.isBrowser()) {
             this.store.dispatch(deleteRecipe({ payload: recipeId }));
+        }
+    }
+
+    public resetRecipe(): void {
+        if (this.platformService.isBrowser()) {
+            this.store.dispatch(resetRecipe());
         }
     }
 }

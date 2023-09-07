@@ -43,5 +43,11 @@ export const getRecipeReducer = createReducer(
             loaded: false,
             error: action.payload,
         })
+    ),
+    on(
+        RecipeActions.resetRecipe,
+        (state, action): GetRecipeState => ({
+            ...initialState,
+        })
     )
 );
